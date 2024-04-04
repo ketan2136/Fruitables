@@ -1,14 +1,16 @@
 import React from 'react'
+import OwlCarousel from 'react-owl-carousel';
 
 const TestimonialDetails = () => {
     return (
+       
         <div className="container-fluid testimonial py-5">
             <div className="container py-5">
                 <div className="testimonial-header text-center">
-                    <h4 className="text-primary">Our Testimonial</h4>
+                    <h4 className="text-primary">Our Testimonial </h4>
                     <h1 className="display-5 mb-5 text-dark">Our Client Saying!</h1>
                 </div>
-                <div className="owl-carousel testimonial-carousel">
+                <OwlCarousel className="owl-carousel testimonial-carousel">
                     <div className="testimonial-item img-border-radius bg-light rounded p-4">
                         <div className="position-relative">
                             <i className="fa fa-quote-right fa-2x text-secondary position-absolute" style={{ bottom: 30, right: 0 }} />
@@ -84,7 +86,7 @@ const TestimonialDetails = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </OwlCarousel>
             </div>
         </div>
 

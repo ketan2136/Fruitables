@@ -1,4 +1,7 @@
 import React from 'react'
+import OwlCarousel from 'react-owl-carousel';
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 const VesitableShop = () => {
     return (
@@ -6,9 +9,12 @@ const VesitableShop = () => {
             <div className="container-fluid vesitable py-5">
                 <div className="container py-5">
                     <h1 className="mb-0">Fresh Organic Vegetables</h1>
-                   
-                    <div className="owl-carousel vegetable-carousel justify-content-center">
-                       
+
+                    <OwlCarousel 
+                      
+                        margin={10}
+                        className="  owl-carousel vegetable-carousel justify-content-center">
+
                         <div className="border border-primary rounded position-relative vesitable-item">
                             <div className="vesitable-img">
                                 <img src="img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
@@ -121,7 +127,7 @@ const VesitableShop = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </OwlCarousel>
                 </div>
             </div>
 
