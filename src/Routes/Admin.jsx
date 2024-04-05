@@ -3,6 +3,7 @@ import MuiDrawer from '../AdminSide/MuiDrawer'
 import { Route, Routes } from 'react-router-dom'
 import Desboard from '../AdminSide/Componets/Desboard'
 import Facility from '../AdminSide/Componets/Facility'
+import { Products } from '../AdminSide/Componets/Products'
 
 const Admin = () => {
     return (
@@ -12,7 +13,8 @@ const Admin = () => {
                     <Route >
                         <Route path='/' element={<Desboard />} />
                     </Route>
-                    <Route path='/Admin/facilitydrower' element={<Facility />}></Route>
+                    <Route path='/facilitydrower' element={<Facility />}></Route>
+                    <Route path='/productdrower' element={<Products />}></Route>
                 </Routes>
             </MuiDrawer>
         </div>
