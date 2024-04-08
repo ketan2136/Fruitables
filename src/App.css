@@ -36,3 +36,49 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+/* ==============login form============== */
+.login-from h1 {
+  text-align: center;
+}
+.login-from {
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 50px;
+  border: 2px solid black;
+  max-width: 500px;
+  background-color: #f4f6f8 !important;
+}
+
+.login-from label{
+  display: inline-block;
+  display: flex;
+  color: black;
+}
+
+.login-from input{
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px ;
+}
+.login-from span{
+  margin-bottom: 25px;
+  display: block;
+}
+
+.login-button {
+  padding-top: 10px;
+}
+
+.login-button button{
+  padding: 10px 20px; 
+  background-color: #81c408 ;
+  border-radius: 5px ;
+}
+.login-button button:hover{
+ background-color: orange;
+ color: #fff;
+}

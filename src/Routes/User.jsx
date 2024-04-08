@@ -9,6 +9,7 @@ import Chackout from '../Pages/Chackout'
 import Testimonial from '../Pages/Testimonial'
 import Contact from '../Pages/Contact'
 import Footer from '../Components/Footer/Footer'
+import Login from '../Pages/Login'
 
 const User = () => {
     return (
@@ -23,6 +24,7 @@ const User = () => {
                 <Route path={"/chackout"} element={<Chackout />} />
                 <Route path={"/testimonial"} element={<Testimonial />} />
                 <Route path={"/contact"} element={<Contact />} />
+                <Route path={"/login"} element={<Login />} />
             </Routes>
             <Footer />
         </div>

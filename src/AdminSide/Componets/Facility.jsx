@@ -61,8 +61,6 @@ const Facility = () => {
         }
     ];
 
-
-
     const handleupdate = (data) => {
         formik.setValues(data)
         handleClickOpen()
@@ -72,9 +70,6 @@ const Facility = () => {
     const handleDelete = (id) => {
         dispatch(deleteFacility(id))
     }
-
-
-
 
     let facilitySchema = object({
         name: string().required(),

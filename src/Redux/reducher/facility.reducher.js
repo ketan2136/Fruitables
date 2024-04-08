@@ -7,8 +7,6 @@ const initialstate = {
 };
 
 export const facilityReducher = (state = initialstate, action) => {
-  console.log(action);
-
   switch (action.type) {
     case GET_FACILITY:
       return {
