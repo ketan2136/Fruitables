@@ -4,16 +4,24 @@ import * as yup from 'yup'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuth } from '../Redux/action/auth.action';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
 
     const dispatch = useDispatch()
 
     const authVal = useSelector(state => state.auth);
     console.log('login', authVal);
+    
+    console.log('user', authVal.user !== null);
+    console.log('length', authVal.user.length > 0);
+
+    if ( authVal.user !== null && authVal.user.length > 0 ) {
+        // console.log('user count ', authVal.user.length);
+        <Navigate to="/admin" />
+    }
     
 
     let loginschema = yup.object({
@@ -24,16 +32,18 @@ const Login = () => {
 
     const formik = useFormik({
         validationSchema: loginschema,
-
         initialValues: {
             email: '',
             password: '',
          
         },
         onSubmit: (values, action) => {
+            // console.log(values);
+            // dispatch(addAuth({ user: values }))
+            // action.resetForm()
             console.log(values);
-            dispatch(addAuth(values))
-            action.resetForm()
+            dispatch(addAuth(values));
+            action.resetForm();
            
         },
 
@@ -72,3 +82,5 @@ const Login = () => {
 }
 
 export default Login
+
+

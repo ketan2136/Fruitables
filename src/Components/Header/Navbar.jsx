@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({user, login, logout}) => {
     return (
         <>
             <div className="container-fluid fixed-top">
@@ -46,8 +46,11 @@ const Navbar = () => {
                                     <i className="fa fa-shopping-bag fa-2x" />
                                     <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{ top: '-5px', left: 15, height: 20, minWidth: 20 }}>3</span>
                                 </a>
-                                <Link to={'/login'}  className="my-auto">
+                                <Link to={'/logins'}  onClick={login} className="my-auto">
                                     <i className="fas fa-user fa-2x" />
+                                </Link>
+                                <Link  onClick={logout} className="my-auto">
+                                   logout
                                 </Link>
                             </div>
                         </div>

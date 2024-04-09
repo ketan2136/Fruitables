@@ -7,8 +7,6 @@ const initialState = {
 };
 
 export const authReducher = (state = initialState, action) => {
-  console.log(action);
-
   switch (action.type) {
     case GET_AUTH:
       return {
@@ -18,7 +16,7 @@ export const authReducher = (state = initialState, action) => {
     case ADD_AUTH:
       return {
         ...state,
-        user: state.user ? [...state.user, action.payload] : [action.payload],
+        user: [...state.user, action.payload.user],
       };
     default:
       return state;

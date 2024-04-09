@@ -11,20 +11,20 @@ import Contact from '../Pages/Contact'
 import Footer from '../Components/Footer/Footer'
 import Login from '../Pages/Login'
 
-const User = () => {
+const User = ({user, login, logout}) => {
     return (
         <div>
-            <Navbar />
+            <Navbar user={user} login={login} logout={logout}/>
             <Routes>
                 {/* <Route path={"/"} element={<Home />} /> */}
-                <Route path={"/"} element={<Home />} />
+                <Route path={"/"} element={<Home  />} />
                 <Route path={"/shop"} element={<Shop />} />
                 <Route path={"/shopDetails"} element={<ShopDetails />} />
                 <Route path={"/cart"} element={<Cart />} />
                 <Route path={"/chackout"} element={<Chackout />} />
                 <Route path={"/testimonial"} element={<Testimonial />} />
                 <Route path={"/contact"} element={<Contact />} />
-                <Route path={"/login"} element={<Login />} />
+                <Route path={"/logins"} element={<Login />} />
             </Routes>
             <Footer />
         </div>

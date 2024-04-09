@@ -8,7 +8,6 @@ export const addfacility = (data) => (dispatch) => {
     dispatch({type: ADD_FACILITY, payload: data})
 }
 export const editFacility = (data) => (dispatch) => {
-    console.log(data);
     dispatch({type: EDIT_FACILITY, payload: data})
 }
 

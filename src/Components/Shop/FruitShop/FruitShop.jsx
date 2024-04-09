@@ -1,6 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const FruitShop = () => {
+
+
+
+    const shopVal = useSelector(state => state.shop);
+    console.log(shopVal);
+                    
     return (
         <>
             <div className="container-fluid fruite py-5">
@@ -191,7 +198,7 @@ const FruitShop = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-6 col-lg-6 col-xl-4">
+                                        {/* <div className="col-md-6 col-lg-6 col-xl-4">
                                             <div className="rounded position-relative fruite-item">
                                                 <div className="fruite-img">
                                                     <img src="img/fruite-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
@@ -318,7 +325,7 @@ const FruitShop = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="col-12">
                                             <div className="pagination d-flex justify-content-center mt-5">
                                                 <a href="#" className="rounded">«</a>
