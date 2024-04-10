@@ -19,7 +19,7 @@ const User = ({user, login, logout}) => {
                 {/* <Route path={"/"} element={<Home />} /> */}
                 <Route path={"/"} element={<Home  />} />
                 <Route path={"/shop"} element={<Shop />} />
-                <Route path={"/shopDetails"} element={<ShopDetails />} />
+                <Route path={"/shopDetails/:id"} element={<ShopDetails />} />
                 <Route path={"/cart"} element={<Cart />} />
                 <Route path={"/chackout"} element={<Chackout />} />
                 <Route path={"/testimonial"} element={<Testimonial />} />

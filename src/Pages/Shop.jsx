@@ -5,7 +5,7 @@ import FruitShop from '../Components/Shop/FruitShop/FruitShop'
 const Shop = () => {
   return (
     <>
-      <ShopHeader />
+      <ShopHeader  />
       <FruitShop />
     </>
   )
