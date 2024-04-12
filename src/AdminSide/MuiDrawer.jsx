@@ -199,6 +199,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { NavLink } from 'react-router-dom';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 
 const drawerWidth = 240;
 
@@ -270,7 +271,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 let Drowerdata = [
     { title: 'Facility', to: '/admin/facilitydrower', icon: <HomeIcon /> },
-    { title: 'product', to: '/admin/productdrower', icon: <HomeIcon /> },
+    // { title: 'product', to: '/admin/productdrower', icon: <HomeIcon /> },
+    { title: 'shp-product', to: '/admin/shopadmin', icon: <ProductionQuantityLimitsIcon /> },
 ]
 export default function MiniDrawer({ children }) {
     const theme = useTheme();
@@ -302,7 +304,7 @@ export default function MiniDrawer({ children }) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Mini variant drawer
+                        Fruitables Web-site Admin Penal
                     </Typography>
                 </Toolbar>
             </AppBar>

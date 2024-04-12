@@ -29,17 +29,17 @@ function App() {
       <Provider store={store}>
         <Routes>
           <Route path="/*" element={<User user={user} login={login} logout={logout} />} />
-          {/* <Route element={<PrivateRoutes />}>
+          <Route element={<PrivateRoutes />}>
             <Route path="/admin/*" element={<Admin />} />
-          </Route> */}
-          <Route
+          </Route>
+          {/* <Route
             path="/admin/*"
             element={
               <PrivateRoutes user={user}>
                 <Admin />
               </PrivateRoutes>
             }
-          />
+          /> */}
         </Routes>
       </Provider>
     </>

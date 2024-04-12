@@ -6,12 +6,13 @@ const PrivateRoutes = ({user}) => {
 
     const authVal = useSelector(state => state.auth);
 
-    console.log('auth',authVal);
+    // console.log('auth',authVal);
 
         return (
             <>
                 {
-                    authVal.user !== null && authVal.user.length > 0 ? (
+                    // authVal.user !== null && authVal.user.length > 0 ? (
+                    authVal.user  ? (
                         <Outlet />
                 ) : (
                     // <h1>hello 1234</h1>

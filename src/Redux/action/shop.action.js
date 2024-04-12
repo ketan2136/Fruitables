@@ -20,8 +20,9 @@ export const getShop = () => async(dispatch) => {
  // Assuming ActionTypes is imported from another file
 
 export const addShop = (data) => async(dispatch) => {
+    console.log(data);
     try {
-         await axios.post('http://localhost:3001/fruites',{data})
+         await axios.post('http://localhost:3001/fruites',data)
          .then((response) => {
             dispatch({ type: ADD_SHOP, payload: response.data });
          }).catch((error) => {

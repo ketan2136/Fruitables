@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getShop } from '../../../Redux/action/shop.action';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const FruitShop = () => {
 
     const dispatch = useDispatch();
@@ -13,13 +13,13 @@ const FruitShop = () => {
     const shopVal = useSelector(state => state.shop);
     console.log(shopVal);
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
 
-    const handleClick = (v,i) => {
-        navigate(`/shopDetails/${i}`)
+    // const handleClick = (v,i) => {
+    //     navigate(`/shopDetails/${i}`)
         
-    }
+    // }
 
 
     return (
@@ -200,8 +200,8 @@ const FruitShop = () => {
                                             shopVal.shop.map((v, i) => {
                                                 // console.log('k',v);
                                                 return (<div className="col-md-6 col-lg-6 col-xl-4" key={i}>
-                                                    {/* <div className="rounded position-relative fruite-item"   > */}
-                                                    <div className="rounded position-relative fruite-item"  onClick={() => handleClick(v,i)} >
+                                                    <Link className="rounded position-relative fruite-item"   to={`/shopDetails/${v.id}`}>
+                                                    {/* <Link className="rounded position-relative fruite-item"  onClick={() => handleClick(v,i)} > */}
                                                         <div className="fruite-img">
                                                             <img src={v.image} className="img-fluid w-100 rounded-top" alt />
                                                         </div>
@@ -214,7 +214,7 @@ const FruitShop = () => {
                                                                 <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </Link>
                                                 </div>)
                                             })
                                         }
