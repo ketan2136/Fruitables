@@ -2,15 +2,17 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import User from "./Routes/User";
 import Admin from "./Routes/Admin";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { configureStore } from "./Redux/Store";
 import PrivateRoutes from "./Routes/PrivateRoutes";
 import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { deleteAuth } from "./Redux/action/auth.action";
 function App() {
   const [user, setUser] = useState(false);
 
+  // const dispatch = useDispatch();
   
   const login = () => {
     setUser(true);
@@ -19,6 +21,7 @@ function App() {
 
   const logout = () => {
     setUser(false);
+    // dispatch(deleteAuth())
     console.log('logout');
   };
 

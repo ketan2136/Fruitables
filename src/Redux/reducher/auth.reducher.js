@@ -1,4 +1,4 @@
-import { ADD_AUTH, GET_AUTH } from "../Actiontype";
+import { ADD_AUTH, DELETE_AUTH, GET_AUTH } from "../Actiontype";
 
 const initialState = {
   isLoading: false,
@@ -17,6 +17,11 @@ export const authReducher = (state = initialState, action) => {
       return {
         ...state,
         user: [...state.user, action.payload.user],
+      };
+      case DELETE_AUTH:
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

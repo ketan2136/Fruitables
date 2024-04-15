@@ -10,6 +10,7 @@ import Testimonial from '../Pages/Testimonial'
 import Contact from '../Pages/Contact'
 import Footer from '../Components/Footer/Footer'
 import Login from '../Pages/Login'
+import CartDetails from '../Components/Cart/CartDetails/CartDetails'
 
 const User = ({user, login, logout}) => {
     return (

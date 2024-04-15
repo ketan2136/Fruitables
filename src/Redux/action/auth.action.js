@@ -9,3 +9,7 @@ export const getAuth = () => (dispatch) => {
 export const addAuth = (data) => (dispatch) => {
     dispatch({type: ADD_AUTH , payload: data})
 }
+
+export const deleteAuth = (data) => (dispatch) => {
+    dispatch({type: ADD_AUTH , payload: data})
+}

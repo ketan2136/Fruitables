@@ -8,18 +8,18 @@ import {thunk} from "redux-thunk";
 
 export const configureStore = () => {
 
-    // const persistConfig = {
-    //     key: 'root',
-    //     storage: storage,
-    //     whitelist: ['facility','auth'] 
-    // };
+    const persistConfig = {
+        key: 'root',
+        storage: storage,
+        whitelist: ['facility','auth'] 
+    };
 
-    // const persistedReducer = persistReducer(persistConfig, rootReducher);
+    const persistedReducer = persistReducer(persistConfig, rootReducher);
 
-    // const store = createStore(persistedReducer, applyMiddleware(thunk)); 
-    const store = createStore(rootReducher, applyMiddleware(thunk)); 
+    const store = createStore(persistedReducer, applyMiddleware(thunk)); 
+    // const store = createStore(rootReducher, applyMiddleware(thunk)); 
 
-    //  const persistor = persistStore(store);
+     const persistor = persistStore(store);
 
      return store ;
 };

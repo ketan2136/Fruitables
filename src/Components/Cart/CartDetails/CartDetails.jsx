@@ -1,6 +1,29 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeCart } from '../../../Redux/slice/cartSlice';
 
 const CartDetails = () => {
+
+    const shopVal = useSelector(state => state.shop);
+    const cartVal = useSelector(state => state.cart);
+    console.log(cartVal);
+
+    const dispatch = useDispatch()
+
+    let cartItems = cartVal.item.map((v) => {
+        let cartData = shopVal.shop.find((m) => m.id === v.cid);
+
+        let fData = { ...cartData, ...v };
+
+        return fData;
+    })
+
+    console.log(cartItems);
+
+    const handleRemove = (id) => {
+        dispatch(removeCart(id))
+    }
+
     return (
         <div>
             <div className="container-fluid py-5">
@@ -18,7 +41,51 @@ const CartDetails = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+
+                                {
+                                    cartItems.map((v) => (
+
+                                        <tr>
+                                           
+                                            <th scope="row">
+                                                <div className="d-flex align-items-center">
+                                                    <img src={v.image} className="img-fluid me-5 rounded-circle" style={{ width: 80, height: 80 }} alt />
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <p className="mb-0 mt-4">{v.fruite}</p>
+                                            </td>
+                                            <td>
+                                                <p className="mb-0 mt-4">{v.price}</p>
+                                            </td>
+                                            <td>
+                                                <div className="input-group quantity mt-4" style={{ width: 100 }}>
+                                                    <div className="input-group-btn">
+                                                        <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                            <i className="fa fa-minus" />
+                                                        </button>
+                                                    </div>
+                                                    <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
+                                                    <div className="input-group-btn">
+                                                        <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                            <i className="fa fa-plus" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p className="mb-0 mt-4">2.99 $</p>
+                                            </td>
+                                            <td>
+                                                <button onClick={() => handleRemove(v.id)} className="btn btn-md rounded-circle bg-light border mt-4">
+                                                    <i className="fa fa-times text-danger" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+
+                                {/* <tr>
                                     <th scope="row">
                                         <div className="d-flex align-items-center">
                                             <img src="img/vegetable-item-3.png" className="img-fluid me-5 rounded-circle" style={{ width: 80, height: 80 }} alt />
@@ -53,79 +120,8 @@ const CartDetails = () => {
                                             <i className="fa fa-times text-danger" />
                                         </button>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div className="d-flex align-items-center">
-                                            <img src="img/vegetable-item-5.jpg" className="img-fluid me-5 rounded-circle" style={{ width: 80, height: 80 }} alt />
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <p className="mb-0 mt-4">Potatoes</p>
-                                    </td>
-                                    <td>
-                                        <p className="mb-0 mt-4">2.99 $</p>
-                                    </td>
-                                    <td>
-                                        <div className="input-group quantity mt-4" style={{ width: 100 }}>
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                    <i className="fa fa-minus" />
-                                                </button>
-                                            </div>
-                                            <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                    <i className="fa fa-plus" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p className="mb-0 mt-4">2.99 $</p>
-                                    </td>
-                                    <td>
-                                        <button className="btn btn-md rounded-circle bg-light border mt-4">
-                                            <i className="fa fa-times text-danger" />
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div className="d-flex align-items-center">
-                                            <img src="img/vegetable-item-2.jpg" className="img-fluid me-5 rounded-circle" style={{ width: 80, height: 80 }} alt />
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <p className="mb-0 mt-4">Awesome Brocoli</p>
-                                    </td>
-                                    <td>
-                                        <p className="mb-0 mt-4">2.99 $</p>
-                                    </td>
-                                    <td>
-                                        <div className="input-group quantity mt-4" style={{ width: 100 }}>
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                    <i className="fa fa-minus" />
-                                                </button>
-                                            </div>
-                                            <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                    <i className="fa fa-plus" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p className="mb-0 mt-4">2.99 $</p>
-                                    </td>
-                                    <td>
-                                        <button className="btn btn-md rounded-circle bg-light border mt-4">
-                                            <i className="fa fa-times text-danger" />
-                                        </button>
-                                    </td>
-                                </tr>
+                                </tr> */}
+
                             </tbody>
                         </table>
                     </div>

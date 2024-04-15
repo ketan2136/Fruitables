@@ -1,37 +1,41 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
+import { addToCart } from '../../../Redux/slice/cartSlice';
 const Product = () => {
     const { id } = useParams();
     console.log('id:', id);
 
     const shopVal = useSelector(state => state.shop);
     const products = shopVal.shop;
-    console.log('shopVal:', shopVal);
+    console.log('shopVal:', products.image);
 
     const ProductDetails = products.filter(current => current.id === id);
-    console.log('single Product Details: ', ProductDetails);
+    console.log('single Product Details: ', ProductDetails.image);
+
+    const disPatch = useDispatch();
+
+    const handlecart = (id) => {
+        disPatch(addToCart({ cid: id, qty: 1 }))
+        console.log('item', id);
+    }
 
     return (
         <div>
-
-            <div>
-
-            </div>
             <div className="container-fluid py-5 mt-5">
                 <div className="container py-5">
                     <div className="row g-4 mb-5">
                         <div className="col-lg-8 col-xl-9">
                             <div className="row g-4">
-
                                 {
                                     ProductDetails.map((v) => {
+                                        console.log(v.image)
                                         return (
                                             <>
                                                 <div className="col-lg-6">
                                                     <div className="border rounded">
                                                         <a href="#">
-                                                            <img src={v.image} className="img-fluid " alt="Image" />
+                                                            <img src={v.image} className="img-fluid " alt="image" />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -61,7 +65,8 @@ const Product = () => {
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                    {/* <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={() => handlecart}><i className="fa fa-shopping-bag me-2 text-primary" /> + Add to cart</a> */}
+                                                    <button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={() => handlecart(v.id)}><i className="fa fa-shopping-bag me-2 text-primary" /> + Add to cart</button>
                                                 </div>
                                             </>
                                         )

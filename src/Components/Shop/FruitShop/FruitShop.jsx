@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getShop } from '../../../Redux/action/shop.action';
 import { Link, useNavigate } from "react-router-dom";
+import { addToCart } from '../../../Redux/slice/cartSlice';
 const FruitShop = () => {
 
     const dispatch = useDispatch();
@@ -20,6 +21,13 @@ const FruitShop = () => {
     //     navigate(`/shopDetails/${i}`)
         
     // }
+
+    const disPatch = useDispatch();
+
+    const handlecart = (id) => {
+        disPatch(addToCart({ cid: id, qty: 1 }))
+        console.log('item', id);
+    }
 
 
     return (
@@ -211,7 +219,7 @@ const FruitShop = () => {
                                                             <p>{v.description}</p>
                                                             <div className="d-flex justify-content-between flex-lg-wrap">
                                                                 <p className="text-dark fs-5 fw-bold mb-0">{v.price}</p>
-                                                                <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                                <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary" onClick={() => handlecart(v.id)}><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
                                                             </div>
                                                         </div>
                                                     </Link>
