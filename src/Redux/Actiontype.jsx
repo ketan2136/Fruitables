@@ -9,3 +9,5 @@ export const DELETE_AUTH = "DELETE_AUTH";
 
 export const GET_SHOP = "GET_SHOP";
 export const ADD_SHOP = "ADD_SHOP";
+export const DELETE_SHOP = "DELETE_SHOP";
+export const EDIT_SHOP = "EDIT_SHOP";

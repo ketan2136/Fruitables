@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getShop } from '../../../Redux/action/shop.action';
 
 const FruitsShop = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getShop()); // Dispatching the action
+    }, [dispatch]); // Dependency array with dispatch
+
+    const shopVal = useSelector(state => state.shop);
+    console.log(shopVal);
     return (
         <>
             <div className="container-fluid fruite py-5">
@@ -45,23 +55,32 @@ const FruitsShop = () => {
                                 <div className="row g-4">
                                     <div className="col-lg-12">
                                         <div className="row g-4">
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src="img/fruite-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
-                                                    </div>
-                                                    <div className="text-white bg-secondary px-3 py-1 rounded position-absolute" style={{ top: 10, left: 10 }}>Fruits</div>
-                                                    <div className="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                        <h4>Grapes</h4>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                            <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+
+                                            {
+                                                shopVal.shop.map((v, i) => {
+                                                    return (
+                                                        <div className="col-md-6 col-lg-4 col-xl-3">
+                                                            <div className="rounded position-relative fruite-item">
+                                                                <div className="fruite-img">
+                                                                    <img src={v.image} className="img-fluid w-100 rounded-top" alt />
+                                                                </div>
+                                                                <div className="text-white bg-secondary px-3 py-1 rounded position-absolute" style={{ top: 10, left: 10 }}>Fruits</div>
+                                                                <div className="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                                    <h4>{v.fruite}</h4>
+                                                                    <p>{v.description}</p>
+                                                                    <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                        <p className="text-dark fs-5 fw-bold mb-0">{v.price}</p>
+                                                                        <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 col-lg-4 col-xl-3">
+                                                    )
+                                                })
+                                            }
+
+
+                                            {/* <div className="col-md-6 col-lg-4 col-xl-3">
                                                 <div className="rounded position-relative fruite-item">
                                                     <div className="fruite-img">
                                                         <img src="img/fruite-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
@@ -172,7 +191,7 @@ const FruitsShop = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -357,8 +376,8 @@ const FruitsShop = () => {
                     </div>
                 </div>
             </div>
-    </>
-  )
+        </>
+    )
 }
 
 export default FruitsShop

@@ -7,7 +7,7 @@ const FruitShop = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(getShop());
     }, [dispatch]);
 

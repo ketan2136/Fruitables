@@ -35,7 +35,7 @@ const Product = () => {
                                                 <div className="col-lg-6">
                                                     <div className="border rounded">
                                                         <a href="#">
-                                                            <img src={v.image} className="img-fluid " alt="image" />
+                                                            <img src={'../'+v.image} className="img-fluid " alt="image" />
                                                         </a>
                                                     </div>
                                                 </div>

@@ -2,10 +2,10 @@
   "fruites": [
     {
       "id": "1",
-      "fruite": "Grapes",
+      "fruite": "Banana",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": 4.99,
-      "image": "img/fruite-item-5.jpg"
+      "image": "img/fruite-item-3.jpg"
     },
     {
       "id": "2",
@@ -57,46 +57,53 @@
       "image": "img/fruite-item-1.jpg"
     },
     {
-      "id": "93",
-      "fruite": "dregan",
-      "description": "one an ony frutw i dreagan frount is very big fruets",
-      "price": "7.88",
+      "id": 20,
+      "fruite": "Banana",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-3.jpg"
+    },
+    {
+      "id": 386,
+      "fruite": "Banana",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-3.jpg"
+    },
+    {
+      "id": 472,
+      "fruite": "Banana",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
       "image": {}
     },
     {
-      "id": "20",
-      "fruite": "dregan",
-      "description": "rtgftgtgrgdrfgdfgdfgdfgffdgf tgd g rgrg",
-      "price": "447",
-      "image": {}
+      "id": 822,
+      "fruite": "Apricots",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-4.jpg"
     },
     {
-      "id": "32",
-      "fruite": "green",
+      "id": 194,
+      "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": "8.99",
-      "image": "blob:http://localhost:3004/61094ee4-a195-448a-b754-b33232c53634"
+      "price": 4.99,
+      "image": "img/fruite-item-4.jpg"
     },
     {
-      "id": "7",
-      "fruite": "dairenms",
+      "id": 634,
+      "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": "5.78",
-      "image": "blob:http://localhost:3004/a9a0a56d-d1d2-4d72-bd34-0556d4a19654"
+      "price": "4.88",
+      "image": "img/fruite-item-4.jpg"
     },
     {
-      "id": "8",
-      "fruite": "apple",
+      "id": 33,
+      "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": "7.53",
-      "image": "blob:http://localhost:3004/0bda8387-37fb-42c9-a796-07de238d00b2"
-    },
-    {
-      "id": "49",
-      "fruite": "idrops",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": "5.78",
-      "image": "blob:http://localhost:3004/24566b4b-71f8-4cd3-a758-3bf83e7986eb"
+      "price": "500",
+      "image": "img/fruite-item-4.jpg"
     }
   ]
 }

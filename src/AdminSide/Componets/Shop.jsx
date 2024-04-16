@@ -13,7 +13,7 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSelector, useDispatch } from 'react-redux'
-import { addShop, getShop } from '../../Redux/action/shop.action';
+import { addShop, deleteShop, editShop, getShop } from '../../Redux/action/shop.action';
 
 const Shop = () => {
     const [imagePreview, setImagePreview] = React.useState('');
@@ -35,18 +35,7 @@ const Shop = () => {
     }, [dispatch]);
 
     const shopVal = useSelector(state => state.shop);
-    console.log('product', shopVal);
-
-    // const handleFileChange = (event) => {
-    //     const file = event.target.files[0];
-    //     if (file) {
-    //         const reader = new FileReader();
-    //         reader.onloadend = () => {
-    //             setImagePreview(reader.result);
-    //         };
-    //         reader.readAsDataURL(file);
-    //     }
-    // };
+    // console.log('product', shopVal);
 
     const columns = [
         { field: 'fruite', headerName: 'Name', width: 70 },
@@ -73,11 +62,13 @@ const Shop = () => {
     const handleupdate = (data) => {
         formik.setValues(data)
         handleClickOpen()
+        // dispatch(editShop(data))
         setUpdate(data)
     }
 
     const handleDelete = (id) => {
-        // dispatch(deleteFacility(id))
+        console.log(id);
+        dispatch(deleteShop(id))
     }
 
     let productSchema = yup.object({
@@ -98,8 +89,15 @@ const Shop = () => {
         onSubmit: async (values, action) => {
             // const imagePath = await uploadImage(values.image);
             // console.log('file',imagePath);
-            const rNo = Math.floor(Math.random() * 100)
-            dispatch(addShop({ ...values, id: rNo }));
+
+            // if (update) {
+                
+            // } else {
+                const rNo = Math.floor(Math.random() * 1000)
+                dispatch(addShop({ ...values, id: rNo }));
+            // }
+
+
             action.resetForm();
             handleClose();
         },
@@ -184,3 +182,5 @@ const Shop = () => {
 }
 
 export default Shop;
+
+

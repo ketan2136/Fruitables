@@ -1,4 +1,4 @@
-import { ADD_SHOP, GET_SHOP } from "../Actiontype";
+import { ADD_SHOP, DELETE_SHOP, EDIT_SHOP, GET_SHOP } from "../Actiontype";
 
 const initailState = {
   isloading: false,
@@ -20,9 +20,24 @@ export const shopReducer = (state = initailState, action) => {
         ...state,
         shop: state.shop.concat(action.payload),
       };
+    case DELETE_SHOP:
+      return {
+        ...state,
+        shop: state.shop.filter((v) => v.id !== action.payload),
+      };
+    // case EDIT_SHOP:
+    //   return {
+    //     ...state,
+    //     isloading: false,
+    //     shop: state.shop.map((v) => {
+    //       if (v.id === action.payload.id) {
+    //         return action.payload;
+    //       } else {
+    //         return v;
+    //       }
+    //     }),
+    //   };
     default:
       return state;
   }
 };
-
-

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeCart } from '../../../Redux/slice/cartSlice';
+import { decrementCart, incrementCart, removeCart } from '../../../Redux/slice/cartSlice';
 
 const CartDetails = () => {
 
@@ -18,7 +18,12 @@ const CartDetails = () => {
         return fData;
     })
 
-    console.log(cartItems);
+    const handleCartIncrement = (id) => {
+        dispatch(incrementCart(id))
+    }
+    const handleCartdecrement = (id) => {
+        dispatch(decrementCart(id))
+    }
 
     const handleRemove = (id) => {
         dispatch(removeCart(id))
@@ -61,13 +66,13 @@ const CartDetails = () => {
                                             <td>
                                                 <div className="input-group quantity mt-4" style={{ width: 100 }}>
                                                     <div className="input-group-btn">
-                                                        <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                        <button onClick={()=>handleCartdecrement(v.id)} className="btn btn-sm btn-minus rounded-circle bg-light border">
                                                             <i className="fa fa-minus" />
                                                         </button>
                                                     </div>
-                                                    <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
+                                                    <p className="form-control-sm text-center border-0">{v.qty}</p>
                                                     <div className="input-group-btn">
-                                                        <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                        <button onClick={()=>handleCartIncrement(v.id)} className="btn btn-sm btn-plus rounded-circle bg-light border">
                                                             <i className="fa fa-plus" />
                                                         </button>
                                                     </div>
