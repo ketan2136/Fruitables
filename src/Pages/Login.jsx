@@ -1,33 +1,28 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as yup from 'yup'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addAuth } from '../Redux/action/auth.action';
-import { Navigate, Outlet } from 'react-router-dom';
+import { addAuth, getAuth, logoutAuth } from '../Redux/action/auth.action';
+import { useHistory, useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-
     const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        dispatch(getAuth()); // Dispatching the action
+    }, [dispatch]);
 
     const authVal = useSelector(state => state.auth);
     console.log('login', authVal);
-    
-    console.log('user', authVal.user !== null);
-    console.log('length', authVal.user.length > 0);
 
-    if ( authVal.user !== null && authVal.user.length > 0 ) {
-        // console.log('user count ', authVal.user.length);
-        <Navigate to="/admin" />
-    }
-    
 
     let loginschema = yup.object({
         email: yup.string().required().email(),
         password: yup.string().required(),
-       
+
     });
 
     const formik = useFormik({
@@ -35,19 +30,33 @@ const Login = () => {
         initialValues: {
             email: '',
             password: '',
-         
+
         },
         onSubmit: (values, action) => {
-            // console.log(values);
+            alert(JSON.stringify(values));
             // dispatch(addAuth({ user: values }))
             // action.resetForm()
-            console.log(values);
-            dispatch(addAuth(values));
+            handleLogin(values)
+            // dispatch(addAuth(values));
+            // localStorage.setItem('authData', JSON.stringify(values));
             action.resetForm();
-           
         },
 
     });
+
+    const handleLogin = (values) => {
+        console.log(values);
+        dispatch(addAuth(values))
+         localStorage.setItem('authData', JSON.stringify(values));
+
+        navigate('/')
+    }
+
+    const handleLogout = () => {
+        dispatch(logoutAuth()); // Dispatch logout action to remove authentication
+        localStorage.removeItem("loginstatus"); // Clear login status from localStorage
+        navigate('/');
+    }
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = formik;
 
@@ -70,11 +79,14 @@ const Login = () => {
                     <span style={{ color: 'red' }}>{errors.email && touched.email ? errors.email : null}  </span>
                     <label>password</label>
                     <input type="password" name='password' value={values.password} onChange={handleChange} onBlur={handleBlur} placeholder='Enter your password......' />
-                    <span style={{ color: 'red'}}>{errors.password && touched.password ? errors.password : null}  </span>
+                    <span style={{ color: 'red' }}>{errors.password && touched.password ? errors.password : null}  </span>
                     <div className='login-button'>
                         <button type='submit'>Login</button>
                     </div>
                 </form>
+                <div className='login-button'>
+                        <button onClick={handleLogout} >Logout</button>
+                    </div>
 
             </div>
         </>
@@ -82,5 +94,3 @@ const Login = () => {
 }
 
 export default Login
-
-

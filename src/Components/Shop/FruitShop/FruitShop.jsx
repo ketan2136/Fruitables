@@ -12,7 +12,7 @@ const FruitShop = () => {
     }, [dispatch]);
 
     const shopVal = useSelector(state => state.shop);
-    console.log(shopVal);
+    // console.log(shopVal);
 
     // const navigate = useNavigate()
 

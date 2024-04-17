@@ -10,7 +10,6 @@ const FruitsShop = () => {
     }, [dispatch]); // Dependency array with dispatch
 
     const shopVal = useSelector(state => state.shop);
-    console.log(shopVal);
     return (
         <>
             <div className="container-fluid fruite py-5">
@@ -53,7 +52,7 @@ const FruitsShop = () => {
                         <div className="tab-content">
                             <div id="tab-1" className="tab-pane fade show p-0 active">
                                 <div className="row g-4">
-                                    <div className="col-lg-12">
+                                    {/* <div className="col-lg-12"> */}
                                         <div className="row g-4">
 
                                             {
@@ -193,12 +192,12 @@ const FruitsShop = () => {
                                                 </div>
                                             </div> */}
                                         </div>
-                                    </div>
+                                    {/* </div> */}
                                 </div>
                             </div>
                             <div id="tab-2" className="tab-pane fade show p-0">
                                 <div className="row g-4">
-                                    <div className="col-lg-12">
+                                    <div className="col-lg-12">                                                                                                                                                
                                         <div className="row g-4">
                                             <div className="col-md-6 col-lg-4 col-xl-3">
                                                 <div className="rounded position-relative fruite-item">

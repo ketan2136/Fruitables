@@ -5,10 +5,19 @@ import Desboard from '../AdminSide/Componets/Desboard'
 import Facility from '../AdminSide/Componets/Facility'
 import { Products } from '../AdminSide/Componets/Products'
 import Shop from '../AdminSide/Componets/Shop'
+import { useSelector } from 'react-redux'
 
 const Admin = () => {
+    const authVal = useSelector(state => state.auth);
+
+    if (!authVal.user) {
+        return <p>You are not authorized to view this page.</p>;
+    }
+
     return (
         <div>
+
+            {/* <h1>Admin Penal</h1> */}
             <MuiDrawer>
                 <Routes>
                     <Route >
