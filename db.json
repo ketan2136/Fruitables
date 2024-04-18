@@ -105,5 +105,32 @@
       "price": "500",
       "image": "img/fruite-item-4.jpg"
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "applboss@gmail.com",
+      "password": "ketan@123"
+    },
+    {
+      "id": "2",
+      "email": "sonayapeg@gmail.com",
+      "password": "ketan@123"
+    },
+    {
+      "id": "3",
+      "email": "Jojo1956@gmail.com",
+      "password": "ketan@123"
+    },
+    {
+      "id": "4",
+      "email": "Joehanus11@gmail.com",
+      "password": "ketan@123"
+    },
+    {
+      "id": "5",
+      "email": "Rongundy@gmail.com",
+      "password": "ketan@123"
+    }
   ]
 }

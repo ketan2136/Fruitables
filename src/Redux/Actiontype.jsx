@@ -7,6 +7,9 @@ export const ADD_AUTH = 'ADD_AUTH';
 export const GET_AUTH = 'GET_AUTH';
 export const LOGOUT_AUTH = 'LOGOUT_AUTH';
 
+export const ADMIN_GET_LOGIN = 'ADMIN_GET_LOGIN';
+export const ADMIN_ADD_LOGIN = 'ADMIN_ADD_LOGIN';
+
 
 export const GET_SHOP = "GET_SHOP";
 export const ADD_SHOP = "ADD_SHOP";

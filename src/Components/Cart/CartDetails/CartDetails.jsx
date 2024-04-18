@@ -6,7 +6,8 @@ const CartDetails = () => {
 
     const shopVal = useSelector(state => state.shop);
     const cartVal = useSelector(state => state.cart);
-    console.log(cartVal);
+    console.log("cartVal",cartVal);
+    console.log('shopVal',shopVal);
 
     const dispatch = useDispatch()
 

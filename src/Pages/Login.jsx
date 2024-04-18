@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuth, getAuth, logoutAuth } from '../Redux/action/auth.action';
 import { useHistory, useNavigate } from 'react-router-dom';
+import { adminLoginGet } from '../Redux/action/admin.action';
 
 
 const Login = () => {
@@ -12,11 +13,15 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getAuth()); // Dispatching the action
+        dispatch(getAuth());
+        dispatch(adminLoginGet()) // Dispatching the action
     }, [dispatch]);
 
     const authVal = useSelector(state => state.auth);
-    console.log('login', authVal);
+    console.log('login', authVal.user);
+
+    const userVal = useSelector(state => state.users);
+    console.log(userVal.users);
 
 
     let loginschema = yup.object({
@@ -33,12 +38,47 @@ const Login = () => {
 
         },
         onSubmit: (values, action) => {
-            alert(JSON.stringify(values));
-            // dispatch(addAuth({ user: values }))
-            // action.resetForm()
-            handleLogin(values)
-            // dispatch(addAuth(values));
-            // localStorage.setItem('authData', JSON.stringify(values));
+
+            console.log(values);
+
+            const notification = document.createElement('div');
+            notification.textContent = 'successfully... \nEmail: ' + values.email;
+            notification.style.backgroundColor = '#4CAF50';  // Background color
+            notification.style.color = '#FFFFFF';  // Text color
+            notification.style.padding = '15px';
+            notification.style.position = 'fixed';
+            notification.style.top = '10px';
+            notification.style.right = '10px';
+            notification.style.zIndex = '9999';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+            document.body.appendChild(notification);
+
+            const isAdmin = userVal.users.some(user => {
+                console.log("Checking user email:", user.email);
+                return user.email === values.email &&
+                    user.password === values.password
+            });
+
+            console.log("isAdmin:", isAdmin);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+
+            if (isAdmin) {
+                console.log("Redirecting to admin panel");
+                navigate('/admin');
+            } else {
+                console.log("Regular login");
+                handleLogin(values);
+            }
+
+            // setTimeout(() => {
+            //     notification.remove();
+            // }, 3000);
+            // handleLogin(values)
             action.resetForm();
         },
 
@@ -46,16 +86,31 @@ const Login = () => {
 
     const handleLogin = (values) => {
         console.log(values);
-        dispatch(addAuth(values))
-         localStorage.setItem('authData', JSON.stringify(values));
-
+        dispatch(addAuth(values));
         navigate('/')
     }
 
     const handleLogout = () => {
-        dispatch(logoutAuth()); // Dispatch logout action to remove authentication
-        localStorage.removeItem("loginstatus"); // Clear login status from localStorage
-        navigate('/');
+
+        dispatch(logoutAuth());
+        const notification = document.createElement('div');
+        notification.textContent = 'Logged out successfully!';
+        notification.style.backgroundColor = '#F44336';  // Background color
+        notification.style.color = '#FFFFFF';  // Text color
+        notification.style.padding = '15px';
+        notification.style.position = 'fixed';
+        notification.style.top = '10px';
+        notification.style.right = '10px';
+        notification.style.zIndex = '9999';
+        notification.style.borderRadius = '5px';
+        notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);  // Remove no
+        navigate('/logins');
     }
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = formik;
@@ -85,8 +140,8 @@ const Login = () => {
                     </div>
                 </form>
                 <div className='login-button'>
-                        <button onClick={handleLogout} >Logout</button>
-                    </div>
+                    <button onClick={handleLogout} >Logout</button>
+                </div>
 
             </div>
         </>

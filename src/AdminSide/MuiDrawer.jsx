@@ -200,6 +200,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { NavLink } from 'react-router-dom';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import PersonIcon from '@mui/icons-material/Person';
 
 const drawerWidth = 240;
 
@@ -272,7 +273,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 let Drowerdata = [
     { title: 'Facility', to: '/admin/facilitydrower', icon: <HomeIcon /> },
     // { title: 'product', to: '/admin/productdrower', icon: <HomeIcon /> },
-    { title: 'shp-product', to: '/admin/shopadmin', icon: <ProductionQuantityLimitsIcon /> },
+    { title: 'Shp-product', to: '/admin/shopadmin', icon: <ProductionQuantityLimitsIcon /> },
+    { title: 'Admin-user', to: '/admin/adminLogin', icon: <PersonIcon /> },
 ]
 export default function MiniDrawer({ children }) {
     const theme = useTheme();

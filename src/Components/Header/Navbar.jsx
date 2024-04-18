@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 const Navbar = ({user, login, logout}) => {
 
     const cartVal = useSelector(state => state.cart);
-    console.log('headerCart', cartVal.item);
 
     let cartCount = 0;
 
@@ -13,7 +12,7 @@ const Navbar = ({user, login, logout}) => {
         cartCount = cartVal.item.reduce((acc, item) => acc + item.qty, 0);
     }
 
-    console.log('cartCount', cartCount);
+    // console.log('cartCount', cartCount);
 
     return (
         <>
@@ -62,9 +61,9 @@ const Navbar = ({user, login, logout}) => {
                                 <Link to={'/logins'}  onClick={login} className="my-auto">
                                     <i className="fas fa-user fa-2x" />
                                 </Link>
-                                <Link  onClick={logout} className="my-auto">
+                                {/* <Link  onClick={logout} className="my-auto">
                                    logout
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
                     </nav>
