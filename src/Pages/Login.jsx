@@ -6,19 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addAuth, getAuth, logoutAuth } from '../Redux/action/auth.action';
 import { useHistory, useNavigate } from 'react-router-dom';
 import { adminLoginGet } from '../Redux/action/admin.action';
+import PrivateRoutes from '../Routes/PrivateRoutes';
 
 
-const Login = () => {
+const Login = ({ isAdmin }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getAuth());
+        // dispatch(getAuth());
         dispatch(adminLoginGet()) // Dispatching the action
     }, [dispatch]);
 
-    const authVal = useSelector(state => state.auth);
-    console.log('login', authVal.user);
+    // const authVal = useSelector(state => state.auth);
+    // console.log('login', authVal.user);
 
     const userVal = useSelector(state => state.users);
     console.log(userVal.users);
@@ -54,13 +55,13 @@ const Login = () => {
             notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
             document.body.appendChild(notification);
-
+            // handleLogin(values)
             const isAdmin = userVal.users.some(user => {
                 console.log("Checking user email:", user.email);
                 return user.email === values.email &&
                     user.password === values.password
             });
-
+            <PrivateRoutes isAdmin={isAdmin} />
             console.log("isAdmin:", isAdmin);
 
             setTimeout(() => {
@@ -70,29 +71,32 @@ const Login = () => {
             if (isAdmin) {
                 console.log("Redirecting to admin panel");
                 navigate('/admin');
+
             } else {
                 console.log("Regular login");
-                handleLogin(values);
+                // handleLogin(values);
+                navigate('/')
             }
 
-            // setTimeout(() => {
-            //     notification.remove();
-            // }, 3000);
-            // handleLogin(values)
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+
             action.resetForm();
         },
 
     });
 
     const handleLogin = (values) => {
-        console.log(values);
+        console.log('loginvalue', values);
         dispatch(addAuth(values));
-        navigate('/')
+        localStorage.setItem('user', JSON.stringify(values));
+
     }
 
     const handleLogout = () => {
 
-        dispatch(logoutAuth());
+        // dispatch(logoutAuth());
         const notification = document.createElement('div');
         notification.textContent = 'Logged out successfully!';
         notification.style.backgroundColor = '#F44336';  // Background color
@@ -110,6 +114,7 @@ const Login = () => {
         setTimeout(() => {
             notification.remove();
         }, 3000);  // Remove no
+        localStorage.removeItem('user');
         navigate('/logins');
     }
 

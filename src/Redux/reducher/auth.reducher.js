@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export const authReducher = (state = initialState, action) => {
-  console.log(action);
+  console.log('value in redducher',action,state);
   switch (action.type) {
     case GET_AUTH:
       return {

@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux'
 import AdminLogin from '../AdminSide/Componets/AdminLogin'
 
 const Admin = () => {
-    const authVal = useSelector(state => state.auth);
+    // const authVal = useSelector(state => state.auth);
 
-    if (!authVal.user) {
-        return <p>You are not authorized to view this page.</p>;
-    }
+    // if (!authVal.user) {
+    //     return <p>You are not authorized to view this page.</p>;
+    // }
 
     return (
         <div>
