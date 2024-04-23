@@ -201,6 +201,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { NavLink } from 'react-router-dom';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import PersonIcon from '@mui/icons-material/Person';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 
 const drawerWidth = 240;
 
@@ -275,6 +276,7 @@ let Drowerdata = [
     // { title: 'product', to: '/admin/productdrower', icon: <HomeIcon /> },
     { title: 'Shp-product', to: '/admin/shopadmin', icon: <ProductionQuantityLimitsIcon /> },
     { title: 'Admin-user', to: '/admin/adminLogin', icon: <PersonIcon /> },
+    { title: 'Add-Coupon', to: '/admin/adminCoupon', icon: <LocalAtmIcon /> },
 ]
 export default function MiniDrawer({ children }) {
     const theme = useTheme();

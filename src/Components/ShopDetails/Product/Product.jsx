@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { addToCart } from '../../../Redux/slice/cartSlice';
 const Product = () => {
+    const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
     console.log('id:', id);
 
@@ -11,13 +12,21 @@ const Product = () => {
     console.log('shopVal:', products.image);
 
     const ProductDetails = products.filter(current => current.id === id);
-    console.log('single Product Details: ', ProductDetails.image);
 
     const disPatch = useDispatch();
 
     const handlecart = (id) => {
-        disPatch(addToCart({ cid: id, qty: 1 }))
+        disPatch(addToCart({ cid: id, qty: quantity }))
         console.log('item', id);
+    }
+
+    const handlePlus = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    }
+    const handleMinus = () => {
+        if (quantity > 1) {
+            setQuantity(prevQuantity => prevQuantity + 1);
+        }
     }
 
     return (
@@ -35,7 +44,7 @@ const Product = () => {
                                                 <div className="col-lg-6">
                                                     <div className="border rounded">
                                                         <a href="#">
-                                                            <img src={'../'+v.image} className="img-fluid " alt="image" />
+                                                            <img src={'../' + v.image} className="img-fluid " alt="image" />
                                                         </a>
                                                     </div>
                                                 </div>
@@ -54,13 +63,13 @@ const Product = () => {
                                                     <p className="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
                                                     <div className="input-group quantity mb-5" style={{ width: 100 }}>
                                                         <div className="input-group-btn">
-                                                            <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                            <button className="btn btn-sm btn-minus rounded-circle bg-light border" onClick={handleMinus}>
                                                                 <i className="fa fa-minus" />
                                                             </button>
                                                         </div>
-                                                        <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
+                                                        {quantity}
                                                         <div className="input-group-btn">
-                                                            <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                            <button onClick={handlePlus} className="btn btn-sm btn-plus rounded-circle bg-light border">
                                                                 <i className="fa fa-plus" />
                                                             </button>
                                                         </div>

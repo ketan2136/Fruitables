@@ -19,16 +19,30 @@ const CartDetails = () => {
         return fData;
     })
 
+    console.log(cartItems);
+
     const handleCartIncrement = (id) => {
+        console.log(id);
         dispatch(incrementCart(id))
     }
+
+
     const handleCartdecrement = (id) => {
-        dispatch(decrementCart(id))
+        console.log(id);
+        const item = cartVal.item.find(item => item.cid === id);
+        if (item && item.qty > 1) {
+            dispatch(decrementCart(id));
+        }
+
     }
 
     const handleRemove = (id) => {
         dispatch(removeCart(id))
     }
+
+    const subtotal = cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0);
+
+    console.log(subtotal);
 
     return (
         <div>
@@ -71,7 +85,7 @@ const CartDetails = () => {
                                                             <i className="fa fa-minus" />
                                                         </button>
                                                     </div>
-                                                    <p className="form-control-sm text-center border-0">{v.qty}</p>
+                                                    <p className="form-control-sm text-center border-0">{v.qty }</p>
                                                     <div className="input-group-btn">
                                                         <button onClick={()=>handleCartIncrement(v.id)} className="btn btn-sm btn-plus rounded-circle bg-light border">
                                                             <i className="fa fa-plus" />
@@ -80,7 +94,7 @@ const CartDetails = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <p className="mb-0 mt-4">2.99 $</p>
+                                                <p className="mb-0 mt-4">{v.qty * v.price}</p>
                                             </td>
                                             <td>
                                                 <button onClick={() => handleRemove(v.id)} className="btn btn-md rounded-circle bg-light border mt-4">
@@ -143,7 +157,7 @@ const CartDetails = () => {
                                     <h1 className="display-6 mb-4">Cart <span className="fw-normal">Total</span></h1>
                                     <div className="d-flex justify-content-between mb-4">
                                         <h5 className="mb-0 me-4">Subtotal:</h5>
-                                        <p className="mb-0">$96.00</p>
+                                        <p className="mb-0">${subtotal}</p>
                                     </div>
                                     <div className="d-flex justify-content-between">
                                         <h5 className="mb-0 me-4">Shipping</h5>

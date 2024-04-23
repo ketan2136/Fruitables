@@ -9,7 +9,7 @@ import { adminLoginGet } from '../Redux/action/admin.action';
 import PrivateRoutes from '../Routes/PrivateRoutes';
 
 
-const Login = ({ isAdmin }) => {
+const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
@@ -39,9 +39,6 @@ const Login = ({ isAdmin }) => {
 
         },
         onSubmit: (values, action) => {
-
-            console.log(values);
-
             const notification = document.createElement('div');
             notification.textContent = 'successfully... \nEmail: ' + values.email;
             notification.style.backgroundColor = '#4CAF50';  // Background color
@@ -55,18 +52,19 @@ const Login = ({ isAdmin }) => {
             notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
             document.body.appendChild(notification);
-            // handleLogin(values)
+
             const isAdmin = userVal.users.some(user => {
                 console.log("Checking user email:", user.email);
                 return user.email === values.email &&
                     user.password === values.password
             });
-            <PrivateRoutes isAdmin={isAdmin} />
+
+
+            // dispatch(addAuth(values))
+            // handlePrivate(values)
+
             console.log("isAdmin:", isAdmin);
 
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
 
             if (isAdmin) {
                 console.log("Redirecting to admin panel");
@@ -87,12 +85,21 @@ const Login = ({ isAdmin }) => {
 
     });
 
-    const handleLogin = (values) => {
-        console.log('loginvalue', values);
-        dispatch(addAuth(values));
-        localStorage.setItem('user', JSON.stringify(values));
+    // const handlePrivate = (admin) => {
+    //     console.log('handleprivate', admin);
+    //     return (
 
-    }
+    //         <PrivateRoutes admin={admin} />
+    //     )
+    // }
+
+
+    // const handleLogin = (values) => {
+    //     console.log('loginvalue', values);
+    //     dispatch(addAuth(values));
+    //     localStorage.setItem('user', JSON.stringify(values));
+
+    // }
 
     const handleLogout = () => {
 
@@ -110,11 +117,10 @@ const Login = ({ isAdmin }) => {
         notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
         document.body.appendChild(notification);
-
+        dispatch(logoutAuth())
         setTimeout(() => {
             notification.remove();
-        }, 3000);  // Remove no
-        localStorage.removeItem('user');
+        }, 3000);
         navigate('/logins');
     }
 
@@ -123,6 +129,7 @@ const Login = ({ isAdmin }) => {
 
     return (
         <>
+
             <div className="container-fluid page-header py-5">
                 <h1 className="text-center text-white display-6">Login</h1>
                 <ol className="breadcrumb justify-content-center mb-0">
@@ -154,3 +161,5 @@ const Login = ({ isAdmin }) => {
 }
 
 export default Login
+
+

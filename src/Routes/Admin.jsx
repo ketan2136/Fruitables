@@ -7,6 +7,7 @@ import { Products } from '../AdminSide/Componets/Products'
 import Shop from '../AdminSide/Componets/Shop'
 import { useSelector } from 'react-redux'
 import AdminLogin from '../AdminSide/Componets/AdminLogin'
+import AdminCoupon from '../AdminSide/Componets/AdminCoupon'
 
 const Admin = () => {
     // const authVal = useSelector(state => state.auth);
@@ -28,6 +29,7 @@ const Admin = () => {
                     <Route path='/productdrower' element={<Products />}></Route>
                     <Route path='/shopadmin' element={<Shop />}></Route>
                     <Route path='/adminLogin' element={<AdminLogin />}></Route>
+                    <Route path='/adminCoupon' element={<AdminCoupon />}></Route>
                 </Routes>
             </MuiDrawer>
         </div>

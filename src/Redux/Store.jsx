@@ -49,9 +49,6 @@ export const configureStore = () => {
 
     const persistor = persistStore(store);
 
-    console.log('store:', store);
-  console.log('persistor:', persistor);
-
     return { store, persistor }; // Return both store and persistor
 };
 

@@ -5,6 +5,8 @@ import { shopReducer } from "./shop.reducher";
 import cartSlice from "../slice/cartSlice";
 import { authReducher } from "./auth.reducher";
 import { adminLoginReducher } from "./admin.reducher";
+import { newAuthReducer } from "./new.reducer";
+import couponSlice from "../slice/couponSlice";
 
 
 export const rootReducher = combineReducers ({
@@ -13,4 +15,6 @@ export const rootReducher = combineReducers ({
     shop: shopReducer,
     cart: cartSlice,
     users: adminLoginReducher,
+    userNew: newAuthReducer,
+    coupon: couponSlice,
 })

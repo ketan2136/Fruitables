@@ -32,6 +32,7 @@ export const cartSlice = createSlice({
       let item = state.item.findIndex((v) => v.cid === action.payload);
       console.log(item);
       state.item[item].qty++;
+      
 
       state.item = state.item;
       state.isLoading = state.false;

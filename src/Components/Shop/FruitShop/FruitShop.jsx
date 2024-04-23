@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getShop } from '../../../Redux/action/shop.action';
 import { Link, useNavigate } from "react-router-dom";
 import { addToCart } from '../../../Redux/slice/cartSlice';
 const FruitShop = () => {
+    const [search, setSearch] = useState('');
 
     const dispatch = useDispatch();
 
@@ -12,14 +13,14 @@ const FruitShop = () => {
     }, [dispatch]);
 
     const shopVal = useSelector(state => state.shop);
-    // console.log(shopVal);
+    console.log(shopVal.shop);
 
     // const navigate = useNavigate()
 
 
     // const handleClick = (v,i) => {
     //     navigate(`/shopDetails/${i}`)
-        
+
     // }
 
     const disPatch = useDispatch();
@@ -28,6 +29,16 @@ const FruitShop = () => {
         disPatch(addToCart({ cid: id, qty: 1 }))
         console.log('item', id);
     }
+
+    const handleChange = (val) => {
+        setSearch(val);
+    };
+
+    const filteredData = shopVal.shop.filter((v) =>
+        v.fruite.toLowerCase().includes(search.toLowerCase()) ||
+        v.price.toString().includes(search) ||
+        v.description.toLowerCase().includes(search.toLowerCase())
+    );
 
 
     return (
@@ -40,7 +51,13 @@ const FruitShop = () => {
                             <div className="row g-4">
                                 <div className="col-xl-3">
                                     <div className="input-group w-100 mx-auto d-flex">
-                                        <input type="search" className="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" />
+                                        <input
+                                            type="search"
+                                            className="form-control p-3"
+                                            placeholder="keywords"
+                                            aria-describedby="search-icon-1"
+                                            onChange={(e) => handleChange(e.target.value)}
+                                        />
                                         <span id="search-icon-1" className="input-group-text p-3"><i className="fa fa-search" /></span>
                                     </div>
                                 </div>
@@ -204,12 +221,12 @@ const FruitShop = () => {
                                 </div>
                                 <div className="col-lg-9">
                                     <div className="row g-4 justify-content-center">
+
                                         {
-                                            shopVal.shop.map((v, i) => {
+                                            filteredData.map((v, i) => {
                                                 // console.log('k',v);
                                                 return (<div className="col-md-6 col-lg-6 col-xl-4" key={i}>
-                                                    <Link className="rounded position-relative fruite-item"   to={`/shopDetails/${v.id}`}>
-                                                    {/* <Link className="rounded position-relative fruite-item"  onClick={() => handleClick(v,i)} > */}
+                                                    <Link className="rounded position-relative fruite-item" to={`/shopDetails/${v.id}`}>
                                                         <div className="fruite-img">
                                                             <img src={v.image} className="img-fluid w-100 rounded-top" alt />
                                                         </div>
@@ -219,7 +236,7 @@ const FruitShop = () => {
                                                             <p>{v.description}</p>
                                                             <div className="d-flex justify-content-between flex-lg-wrap">
                                                                 <p className="text-dark fs-5 fw-bold mb-0">{v.price}</p>
-                                                                <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary" onClick={() => handlecart(v.id)}><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                                <Link className="btn border border-secondary rounded-pill px-3 text-primary" onClick={() => handlecart(v.id)}><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</Link>
                                                             </div>
                                                         </div>
                                                     </Link>
@@ -244,7 +261,7 @@ const FruitShop = () => {
                                                 </div>
                                             </div>
                                         </div> */}
-                                     
+
                                         <div className="col-12">
                                             <div className="pagination d-flex justify-content-center mt-5">
                                                 <a href="#" className="rounded">«</a>
@@ -270,3 +287,4 @@ const FruitShop = () => {
 }
 
 export default FruitShop
+
