@@ -5,8 +5,9 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuth, getAuth, logoutAuth } from '../Redux/action/auth.action';
 import { useHistory, useNavigate } from 'react-router-dom';
-import { adminLoginGet } from '../Redux/action/admin.action';
+import { adminAddLogin, adminLogout } from '../Redux/action/admin.action';
 import PrivateRoutes from '../Routes/PrivateRoutes';
+import { getAuthNew } from '../Redux/action/newAuth.action';
 
 
 const Login = () => {
@@ -15,14 +16,15 @@ const Login = () => {
 
     useEffect(() => {
         // dispatch(getAuth());
-        dispatch(adminLoginGet()) // Dispatching the action
+        // dispatch(adminLoginGet()) // Dispatching the action
+        dispatch(getAuthNew()) // Dispatching the action
     }, [dispatch]);
 
-    // const authVal = useSelector(state => state.auth);
-    // console.log('login', authVal.user);
+    const userVal = useSelector(state => state.userNew);
+    console.log('login', userVal.userNew);
 
-    const userVal = useSelector(state => state.users);
-    console.log(userVal.users);
+    // const userVal = useSelector(state => state.users);
+    // console.log(userVal);
 
 
     let loginschema = yup.object({
@@ -53,7 +55,7 @@ const Login = () => {
 
             document.body.appendChild(notification);
 
-            const isAdmin = userVal.users.some(user => {
+            const isAdmin = userVal.userNew.some(user => {
                 console.log("Checking user email:", user.email);
                 return user.email === values.email &&
                     user.password === values.password
@@ -72,13 +74,15 @@ const Login = () => {
 
             } else {
                 console.log("Regular login");
-                // handleLogin(values);
                 navigate('/')
             }
-
+            
             setTimeout(() => {
                 notification.remove();
             }, 3000);
+            
+            // handleLogin(values);
+            dispatch(adminAddLogin(values));
 
             action.resetForm();
         },
@@ -95,9 +99,10 @@ const Login = () => {
 
 
     // const handleLogin = (values) => {
-    //     console.log('loginvalue', values);
-    //     dispatch(addAuth(values));
-    //     localStorage.setItem('user', JSON.stringify(values));
+    //     // console.log('loginvalue', values);
+    //     // dispatch(addAuth(values));
+    //     dispatch(adminAddLogin(values));
+    //     // localStorage.setItem('user', JSON.stringify(values));
 
     // }
 
@@ -117,8 +122,9 @@ const Login = () => {
         notification.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
         document.body.appendChild(notification);
-        dispatch(logoutAuth())
         setTimeout(() => {
+            // dispatch(logoutAuth())
+            dispatch(adminLogout())
             notification.remove();
         }, 3000);
         navigate('/logins');

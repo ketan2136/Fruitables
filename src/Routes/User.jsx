@@ -12,10 +12,10 @@ import Footer from '../Components/Footer/Footer'
 import Login from '../Pages/Login'
 import CartDetails from '../Components/Cart/CartDetails/CartDetails'
 
-const User = ({user, login, logout}) => {
+const User = () => {
     return (
         <div>
-            <Navbar user={user} login={login} logout={logout}/>
+            <Navbar />
             <Routes>
                 {/* <Route path={"/"} element={<Home />} /> */}
                 <Route path={"/"} element={<Home  />} />

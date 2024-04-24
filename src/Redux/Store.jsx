@@ -39,7 +39,7 @@ export const configureStore = () => {
     const persistConfig = {
         key: 'root',
         storage: storage,
-        whitelist: ['facility', 'auth', 'cart'] 
+        whitelist: ['facility', 'auth', 'cart', 'users', 'userNew'] 
     };
 
     const persistedReducer = persistReducer(persistConfig, rootReducher); // Updated to authReducer
