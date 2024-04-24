@@ -11,6 +11,7 @@ import { getAuthNew } from '../Redux/action/newAuth.action';
 
 
 const Login = () => {
+    const [authtype, setauthtype] = useState('logins');
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
@@ -30,7 +31,9 @@ const Login = () => {
     let loginschema = yup.object({
         email: yup.string().required().email(),
         password: yup.string().required(),
-
+        confirmPassword: yup.string()
+        .oneOf([yup.ref('password'), undefined], 'Passwords not match')
+   
     });
 
     const formik = useFormik({
@@ -38,6 +41,7 @@ const Login = () => {
         initialValues: {
             email: '',
             password: '',
+            confirmPassword: '',
 
         },
         onSubmit: (values, action) => {
@@ -76,11 +80,11 @@ const Login = () => {
                 console.log("Regular login");
                 navigate('/')
             }
-            
+
             setTimeout(() => {
                 notification.remove();
             }, 3000);
-            
+
             // handleLogin(values);
             dispatch(adminAddLogin(values));
 
@@ -132,10 +136,8 @@ const Login = () => {
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = formik;
 
-
     return (
         <>
-
             <div className="container-fluid page-header py-5">
                 <h1 className="text-center text-white display-6">Login</h1>
                 <ol className="breadcrumb justify-content-center mb-0">
@@ -144,23 +146,65 @@ const Login = () => {
                     <li className="breadcrumb-item active text-white">Contact</li>
                 </ol>
             </div>
+
             <div className='login-from'>
-                <h1>Login </h1>
+                {
+                    authtype === 'login' ? <h2>Login</h2> :
+                        <h2 style={{ textAlign: 'center' }}>Register</h2>
+                }
+
                 <form action="" onSubmit={handleSubmit}>
+
                     <label>E-mail</label>
                     <input type="email" name='email' value={values.email} onChange={handleChange} onBlur={handleBlur} placeholder='Enter your email......' />
                     <span style={{ color: 'red' }}>{errors.email && touched.email ? errors.email : null}  </span>
+
                     <label>password</label>
                     <input type="password" name='password' value={values.password} onChange={handleChange} onBlur={handleBlur} placeholder='Enter your password......' />
                     <span style={{ color: 'red' }}>{errors.password && touched.password ? errors.password : null}  </span>
-                    <div className='login-button'>
-                        <button type='submit'>Login</button>
-                    </div>
-                </form>
-                <div className='login-button'>
-                    <button onClick={handleLogout} >Logout</button>
-                </div>
 
+
+                    {
+                        authtype === 'login' ?
+                            null :
+                            <div>
+                                <label>Confirm Password</label>
+                                <input type="password" name='confirmPassword' value={values.confirmPassword} onChange={handleChange} onBlur={handleBlur} placeholder='Enter your confirmPassword......' />
+                                <span style={{ color: 'red' }}>{errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : null}  </span>
+                            </div>
+                    }
+
+                    {
+                        authtype === 'login'
+                            ?
+                            <div className='login-button'>
+                                <button type='submit'>Login</button>
+                            </div>
+                            :
+                            <div className='login-button'>
+                                <button type='submit'>Submit</button>
+                            </div>
+                    }
+
+                    {/* <div className='login-button'>
+                        <button type='submit'>Login</button>
+                    </div> */}
+                </form>
+
+                {/* <div className='login-button'>
+                    <button onClick={handleLogout} >Logout</button>
+                </div> */}
+
+                {
+
+                    authtype === 'login' ?
+                        <>
+                            <span className="login1"> creat new account <a href="#" className='authhh' onClick={() => setauthtype('signup')}>signup</a></span>
+                        </>
+                        :
+                        <span className="login1">you have alredy account <a href="#" className='authhh' onClick={() => setauthtype('login')}>login</a></span>
+
+                }
             </div>
         </>
     )
