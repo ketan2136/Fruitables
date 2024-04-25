@@ -33,6 +33,7 @@ import { applyMiddleware, createStore } from "redux";
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from "redux-persist"; // Corrected the import
 import {thunk} from "redux-thunk"; // Corrected the import
+import createSagaMiddleware from 'redux-saga'
 
 export const configureStore = () => {
 
@@ -42,17 +43,23 @@ export const configureStore = () => {
         whitelist: ['facility', 'auth', 'cart', 'users', 'userNew'] 
     };
 
-    const persistedReducer = persistReducer(persistConfig, rootReducher); // Updated to authReducer
+    const sagaMiddleware = createSagaMiddleware();
+    
+    const middlewares = [thunk, sagaMiddleware]; // Combine middlewares
 
-    const store = createStore(persistedReducer, applyMiddleware(thunk)); 
-    // const store = createStore(authReducer, applyMiddleware(thunk)); 
+    const persistedReducer = persistReducer(persistConfig, rootReducher); // Use rootReducer
+
+    const store = createStore(
+        persistedReducer,
+        applyMiddleware(...middlewares)
+    );
 
     const persistor = persistStore(store);
 
-    return { store, persistor }; // Return both store and persistor
+    return { store, persistor };
 };
 
-export const { store, persistor } = configureStore(); // Destructure store and persistor
+export const { store } = configureStore(); // Destructure store and persistor
 // export const store = configureStore();
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);
 console.log(store);
