@@ -55,7 +55,7 @@ const Login = () => {
             await createUserWithEmailAndPassword(auth, email, password);
             const user = auth.currentUser;
             console.log(user);
-            if(user) {
+            if (user) {
                 await setDoc(doc(db, "users", user.uid), {
                     email: user.email
                 });
@@ -65,37 +65,37 @@ const Login = () => {
                 position: 'top-center',
                 autoClose: 3000 // Close the toast after 3 seconds
             });
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             // toast.error(error.message, {position: 'bottom-center'});
         }
     }
 
-    const handelLogin = async(values) => {
+    const handelLogin = async (values) => {
         try {
-            const userCredential =  await signInWithEmailAndPassword(auth, values.email, values.password)
+            const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password)
             console.log('login successfully')
             const user = userCredential.user;
             console.log(user.password);
-            dispatch(getAuth({email: user.email , password:user.providerId}))
+            dispatch(getAuth({ email: user.email, password: user.providerId }))
             alert('login Successfully');
             // navigate("/")
-        } catch(error) {
+        } catch (error) {
             console.log(error.message);
             alert('Please Register');
         }
     }
 
-    const handlelogout = async() => {
+    const handlelogout = async () => {
         try {
             await auth.signOut()
             console.log("Logout Successfully");
             // dispatch(logoutAuth())
-        } catch(error) {
+        } catch (error) {
             console.log(error.message);
         }
     }
-    
+
 
 
 
@@ -157,14 +157,14 @@ const Login = () => {
 
                     authtype === 'login' ?
                         <>
-                            <span className="login1"> creat new account <a href="#" className='authhh' onClick={() => setauthtype('signup')}>signup</a></span>
+                            <span style={{textAlign:'center', paddingTop:"10px"}} className="login1"> Create New Account <a href="#" className='authhh' onClick={() => setauthtype('signup')}>signup</a></span>
                         </>
                         :
-                        <span className="login1">you have alredy account <a href="#" className='authhh' onClick={() => setauthtype('login')}>login</a></span>
+                        <span style={{textAlign:'center', paddingTop:"10px"}} className="login1">You Have Already Account<a href="#" className='authhh' onClick={() => setauthtype('login')}>login</a></span>
 
                 }
             </div>
-            
+
         </>
     )
 }
