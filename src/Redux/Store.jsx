@@ -43,15 +43,15 @@ export const configureStore = () => {
         whitelist: ['facility', 'auth', 'cart', 'users', 'userNew'] 
     };
 
-    const sagaMiddleware = createSagaMiddleware();
+    // const sagaMiddleware = createSagaMiddleware();
     
-    const middlewares = [thunk, sagaMiddleware]; // Combine middlewares
+    // const middlewares = [thunk, sagaMiddleware]; // Combine middlewares
 
-    const persistedReducer = persistReducer(persistConfig, rootReducher); // Use rootReducer
+    const persistedReducer = persistReducer(persistConfig, rootReducher); 
 
     const store = createStore(
         persistedReducer,
-        applyMiddleware(...middlewares)
+        applyMiddleware(thunk)
     );
 
     const persistor = persistStore(store);
@@ -59,7 +59,6 @@ export const configureStore = () => {
     return { store, persistor };
 };
 
-export const { store } = configureStore(); // Destructure store and persistor
+export const { store } = configureStore(); 
 // export const store = configureStore();
 export const persistor = persistStore(store);
-console.log(store);

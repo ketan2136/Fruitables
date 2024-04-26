@@ -1,10 +1,18 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { logoutAuth } from '../../Redux/action/auth.action';
+import { auth } from '../../firebase';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const Navbar = ({user, login, logout}) => {
+const Navbar = ({ user, login, logout }) => {
 
+    
     const cartVal = useSelector(state => state.cart);
+    
+    const dispatch = useDispatch()
+    const isAuthenticated = useSelector(state => !!state.auth.user.email);
+    console.log(isAuthenticated);
 
     let cartCount = 0;
 
@@ -12,7 +20,21 @@ const Navbar = ({user, login, logout}) => {
         cartCount = cartVal.item.reduce((acc, item) => acc + item.qty, 0);
     }
 
-    // console.log('cartCount', cartCount);
+    const handlelogout = async() => {
+        try {
+            await auth.signOut()
+            console.log("Logout Successfully");
+            dispatch(logoutAuth())
+        } catch(error) {
+            console.log(error.message);
+        }
+    }
+
+    // const handleLogout = () => {
+    //     alert("logout successfully")
+    //     // Dispatch the logout action when the logout button is clicked
+    //     dispatch(logoutAuth());
+    // };
 
     return (
         <>
@@ -58,12 +80,18 @@ const Navbar = ({user, login, logout}) => {
                                     <i className="fa fa-shopping-bag fa-2x" />
                                     <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{ top: '-5px', left: 15, height: 20, minWidth: 20 }}>{cartCount}</span>
                                 </Link>
-                                <Link to={'/logins'}  onClick={login} className="my-auto">
+                                {/* <Link to={'/logins'}  onClick={login} className="my-auto">
                                     <i className="fas fa-user fa-2x" />
-                                </Link>
-                                {/* <Link  onClick={logout} className="my-auto">
-                                   logout
                                 </Link> */}
+                                {
+                                    isAuthenticated ?
+                                        <Link to={'/logins'} onClick={handlelogout} className="my-auto">
+                                            Logout<i className="fa-solid fa-right-from-bracket"></i>
+                                        </Link> :
+                                        <Link to={'/logins'} onClick={login} className="my-auto">
+                                            <i className="fas fa-user fa-2x" />
+                                        </Link>
+                                }
                             </div>
                         </div>
                     </nav>
@@ -75,3 +103,5 @@ const Navbar = ({user, login, logout}) => {
 }
 
 export default Navbar
+
+

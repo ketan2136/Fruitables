@@ -10,7 +10,7 @@ export const LOGOUT_AUTH = 'LOGOUT_AUTH';
 
 
 
-export const ADMIN_GET_LOGIN = 'ADMIN_GET_LOGIN';
+export const ADMIN_GET_LOGIN = "ADMIN_GET_LOGIN";
 
 
 //admin
