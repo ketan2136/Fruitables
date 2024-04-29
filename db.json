@@ -57,42 +57,42 @@
       "image": "img/fruite-item-1.jpg"
     },
     {
-      "id": 20,
+      "id": "20",
       "fruite": "Banana",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": 4.99,
       "image": "img/fruite-item-3.jpg"
     },
     {
-      "id": 386,
+      "id": "386",
       "fruite": "Banana",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": 4.99,
       "image": "img/fruite-item-3.jpg"
     },
     {
-      "id": 822,
+      "id": "822",
       "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": 4.99,
       "image": "img/fruite-item-4.jpg"
     },
     {
-      "id": 194,
+      "id": "194",
       "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": 4.99,
       "image": "img/fruite-item-4.jpg"
     },
     {
-      "id": 634,
+      "id": "634",
       "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": "4.88",
       "image": "img/fruite-item-4.jpg"
     },
     {
-      "id": 33,
+      "id": "33",
       "fruite": "Apricots",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
       "price": "500",
@@ -138,6 +138,18 @@
       "code": "jjjgfh",
       "percentage": 65,
       "expiryDate": "2024-05-02"
+    },
+    {
+      "id": "4ddc",
+      "code": "ghfh",
+      "percentage": 65,
+      "expiryDate": "2024-05-01"
+    },
+    {
+      "id": "9c30",
+      "code": "gh6d",
+      "percentage": 78,
+      "expiryDate": "2024-04-30"
     }
   ]
 }

@@ -17,8 +17,8 @@ const FeatursStart = () => {
                                 if ( i < 4) {
                                     return (
 
-                                        <div className="col-md-6 col-lg-3">
-                                            <div className="featurs-item text-center rounded bg-light p-4">
+                                        <div className="col-md-6 col-lg-3 " >
+                                            <div className="featurs-item text-center rounded bg-light p-4 boxhover">
                                                 <div className="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
                                                     <i className="fas fa-car-side fa-3x text-white" />
                                                 </div>

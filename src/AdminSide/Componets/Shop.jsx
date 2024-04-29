@@ -35,7 +35,7 @@ const Shop = () => {
     }, [dispatch]);
 
     const shopVal = useSelector(state => state.shop);
-    // console.log('product', shopVal);
+    console.log('product', shopVal);
 
     const columns = [
         { field: 'fruite', headerName: 'Name', width: 70 },
@@ -51,7 +51,7 @@ const Shop = () => {
                     <IconButton aria-label="edit" onClick={() => handleupdate(params.row)}>
                         <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" onClick={() => handleDelete(params.row.id)}>
+                    <IconButton aria-label="delete" onClick={() => handleDelete(params.row)}>
                         <DeleteIcon />
                     </IconButton>
                 </>

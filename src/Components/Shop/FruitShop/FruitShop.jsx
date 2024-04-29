@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getShop } from '../../../Redux/action/shop.action';
 import { Link, useNavigate } from "react-router-dom";
 import { addToCart } from '../../../Redux/slice/cartSlice';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const FruitShop = () => {
     const [search, setSearch] = useState('');
 
@@ -227,7 +228,7 @@ const FruitShop = () => {
                                                 // console.log('k',v);
                                                 return (<div className="col-md-6 col-lg-6 col-xl-4" key={i}>
                                                     <Link className="rounded position-relative fruite-item" to={`/shopDetails/${v.id}`}>
-                                                        <div className="fruite-img">
+                                                        <div className="fruite-img shopImage">
                                                             <img src={v.image} className="img-fluid w-100 rounded-top" alt />
                                                         </div>
                                                         <div className="text-white bg-secondary px-3 py-1 rounded position-absolute" style={{ top: 10, left: 10 }}>Fruits</div>
@@ -235,7 +236,7 @@ const FruitShop = () => {
                                                             <h4>{v.fruite}</h4>
                                                             <p>{v.description}</p>
                                                             <div className="d-flex justify-content-between flex-lg-wrap">
-                                                                <p className="text-dark fs-5 fw-bold mb-0">{v.price}</p>
+                                                                <p className="text-dark fs-5 fw-bold mb-0"><CurrencyRupeeIcon />{v.price}</p>
                                                                 <Link className="btn border border-secondary rounded-pill px-3 text-primary" onClick={() => handlecart(v.id)}><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</Link>
                                                             </div>
                                                         </div>

@@ -7,12 +7,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = ({ user, login, logout }) => {
 
-    
+
     const cartVal = useSelector(state => state.cart);
-    
+
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector(state => !!state.auth.user.email);
-    console.log(isAuthenticated);
+    const isAuthenticated = useSelector(state => state.auth);
+
+    let isLoggedIn = (Object.keys(isAuthenticated.user).length === 0) ? false : true;
 
     let cartCount = 0;
 
@@ -20,12 +21,12 @@ const Navbar = ({ user, login, logout }) => {
         cartCount = cartVal.item.reduce((acc, item) => acc + item.qty, 0);
     }
 
-    const handlelogout = async() => {
+    const handlelogout = async () => {
         try {
             await auth.signOut()
             console.log("Logout Successfully");
             dispatch(logoutAuth())
-        } catch(error) {
+        } catch (error) {
             console.log(error.message);
         }
     }
@@ -84,7 +85,7 @@ const Navbar = ({ user, login, logout }) => {
                                     <i className="fas fa-user fa-2x" />
                                 </Link> */}
                                 {
-                                    isAuthenticated ?
+                                    isLoggedIn ?
                                         <Link to={'/logins'} onClick={handlelogout} className="my-auto">
                                             Logout<i className="fa-solid fa-right-from-bracket"></i>
                                         </Link> :

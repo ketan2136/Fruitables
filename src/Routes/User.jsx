@@ -11,6 +11,7 @@ import Contact from '../Pages/Contact'
 import Footer from '../Components/Footer/Footer'
 import Login from '../Pages/Login'
 import CartDetails from '../Components/Cart/CartDetails/CartDetails'
+import NotFaund from '../Pages/NotFaund'
 
 const User = () => {
     return (
@@ -26,6 +27,7 @@ const User = () => {
                 <Route path={"/testimonial"} element={<Testimonial />} />
                 <Route path={"/contact"} element={<Contact />} />
                 <Route path={"/logins"} element={<Login />} />
+                <Route path={"*"} element={<NotFaund />} />
             </Routes>
             <Footer />
         </div>
