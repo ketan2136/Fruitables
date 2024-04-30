@@ -9,9 +9,11 @@ const Product = () => {
 
     const shopVal = useSelector(state => state.shop);
     const products = shopVal.shop;
-    console.log('shopVal:', products.image);
+    console.log('shopVal:', products);
 
     const ProductDetails = products.filter(current => current.id === id);
+    // const ProductDetails = products.some(current => current.id === id);
+    console.log(ProductDetails);
 
     const disPatch = useDispatch();
 

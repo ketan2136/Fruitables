@@ -6,15 +6,15 @@ import { addToCart } from '../../../Redux/slice/cartSlice';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const FruitShop = () => {
     const [search, setSearch] = useState('');
-
+    const [value, setValue] = useState(0)
     const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(getShop());
     }, [dispatch]);
 
-    const shopVal = useSelector(state => state.shop);
-    console.log(shopVal.shop);
+    const { shop, isLoading } = useSelector(state => state.shop);
+    console.log(shop);
 
     // const navigate = useNavigate()
 
@@ -35,11 +35,16 @@ const FruitShop = () => {
         setSearch(val);
     };
 
-    const filteredData = shopVal.shop.filter((v) =>
+    const filteredData = shop.filter((v) =>
         v.fruite.toLowerCase().includes(search.toLowerCase()) ||
         v.price.toString().includes(search) ||
         v.description.toLowerCase().includes(search.toLowerCase())
     );
+
+
+    const handleRange = (event) => {
+        setValue(event.target.value)
+    }
 
 
     return (
@@ -118,8 +123,15 @@ const FruitShop = () => {
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <h4 className="mb-2">Price</h4>
-                                                <input type="range" className="form-range w-100" id="rangeInput" name="rangeInput" min={0} max={500} defaultValue={0} oninput="amount.value=rangeInput.value" />
-                                                <output id="amount" name="amount" min-velue={0} max-value={500} htmlFor="rangeInput">0</output>
+                                                <input
+                                                    type="range"
+                                                    className="form-range w-100"
+                                                    id="rangeInput"
+                                                    max={1000}
+                                                    name="rangeInput"
+                                                    onChange={handleRange}
+                                                />
+                                                <p>{value}</p>
                                             </div>
                                         </div>
                                         <div className="col-lg-12">
@@ -223,9 +235,15 @@ const FruitShop = () => {
                                 <div className="col-lg-9">
                                     <div className="row g-4 justify-content-center">
 
-                                        {
+                                        {isLoading ? (
+                                            // <div class="loader">
+                                            //     <div class="loader-wheel"></div>
+                                            //     <div class="loader-text"></div>
+                                            // </div>
+                                            <span class="loader"></span>
+                                        ) : (
                                             filteredData.map((v, i) => {
-                                                // console.log('k',v);
+                                                console.log('k', v.id);
                                                 return (<div className="col-md-6 col-lg-6 col-xl-4" key={i}>
                                                     <Link className="rounded position-relative fruite-item" to={`/shopDetails/${v.id}`}>
                                                         <div className="fruite-img shopImage">
@@ -241,28 +259,10 @@ const FruitShop = () => {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                </div>)
+                                                </div>
+                                                )
                                             })
-                                        }
-
-
-                                        {/* <div className="col-md-6 col-lg-6 col-xl-4">
-                                            <div className="rounded position-relative fruite-item">
-                                                <div className="fruite-img">
-                                                    <img src="img/fruite-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
-                                                </div>
-                                                <div className="text-white bg-secondary px-3 py-1 rounded position-absolute" style={{ top: 10, left: 10 }}>Fruits</div>
-                                                <div className="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <h4>Grapes</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                    <div className="d-flex justify-content-between flex-lg-wrap">
-                                                        <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                        <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */}
-
+                                        )}
                                         <div className="col-12">
                                             <div className="pagination d-flex justify-content-center mt-5">
                                                 <a href="#" className="rounded">«</a>

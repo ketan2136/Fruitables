@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { decrementCart, incrementCart, removeCart } from '../../../Redux/slice/cartSlice';
-
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const CartDetails = () => {
 
     const shopVal = useSelector(state => state.shop);
@@ -25,7 +25,6 @@ const CartDetails = () => {
         console.log(id);
         dispatch(incrementCart(id))
     }
-
 
     const handleCartdecrement = (id) => {
         console.log(id);
@@ -76,7 +75,7 @@ const CartDetails = () => {
                                                 <p className="mb-0 mt-4">{v.fruite}</p>
                                             </td>
                                             <td>
-                                                <p className="mb-0 mt-4">{v.price}</p>
+                                                <p className="mb-0 mt-4"><CurrencyRupeeIcon />{v.price}</p>
                                             </td>
                                             <td>
                                                 <div className="input-group quantity mt-4" style={{ width: 100 }}>
@@ -94,7 +93,7 @@ const CartDetails = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <p className="mb-0 mt-4">{v.qty * v.price}</p>
+                                                <p className="mb-0 mt-4"><CurrencyRupeeIcon/>{v.qty * v.price}</p>
                                             </td>
                                             <td>
                                                 <button onClick={() => handleRemove(v.id)} className="btn btn-md rounded-circle bg-light border mt-4">
@@ -157,7 +156,7 @@ const CartDetails = () => {
                                     <h1 className="display-6 mb-4">Cart <span className="fw-normal">Total</span></h1>
                                     <div className="d-flex justify-content-between mb-4">
                                         <h5 className="mb-0 me-4">Subtotal:</h5>
-                                        <p className="mb-0">${subtotal}</p>
+                                        <p className="mb-0"><CurrencyRupeeIcon />{subtotal}</p>
                                     </div>
                                     <div className="d-flex justify-content-between">
                                         <h5 className="mb-0 me-4">Shipping</h5>
@@ -169,7 +168,7 @@ const CartDetails = () => {
                                 </div>
                                 <div className="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
-                                    <p className="mb-0 pe-4">$99.00</p>
+                                    <p className="mb-0 pe-4"><CurrencyRupeeIcon />99.00</p>
                                 </div>
                                 <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
                             </div>

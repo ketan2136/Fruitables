@@ -62,7 +62,7 @@ const Shop = () => {
     const handleupdate = (data) => {
         formik.setValues(data)
         handleClickOpen()
-        // dispatch(editShop(data))
+        dispatch(editShop(data))
         setUpdate(data)
     }
 

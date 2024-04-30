@@ -36,3 +36,5 @@ export const NEWAUTH_ADD = "NEWAUTH_ADD";
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const FORGOT_REQUEST = "FORGOT_REQUEST";
+export const LOADING_START = "LOADING_START";
+export const LOADING_STOP = "LOADING_STOP";

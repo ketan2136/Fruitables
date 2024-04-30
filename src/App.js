@@ -4,32 +4,10 @@ import User from "./Routes/User";
 import Admin from "./Routes/Admin";
 import { Provider, useDispatch } from "react-redux";
 import { configureStore, persistor, store } from "./Redux/Store";
-// import PrivateRoutes from "./Routes/PrivateRoutes";
-import { useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { deleteAuth } from "./Redux/action/auth.action";
-import Login from "./Pages/Login";
 import PrivateRoutes from "./Routes/PrivateRoutes";
-import { PersistGate } from "redux-persist/integration/react";
-import { ToastContainer } from "react-toastify";
 
 function App() {
-  // const [user, setUser] = useState(false);
-
-  // // const dispatch = useDispatch();
-
-  // const login = () => {
-  //   setUser(true);
-  //   console.log("login");
-  // };
-
-  // const logout = () => {
-  //   setUser(false);
-  //   // dispatch(deleteAuth())
-  //   console.log("logout");
-  // };
-
+ 
   // const store = configureStore();
 
   return (

@@ -56,7 +56,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
 
@@ -98,7 +97,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 let Drowerdata = [
     { title: 'Facility', to: '/admin/facilitydrower', icon: <HomeIcon /> },
-    // { title: 'product', to: '/admin/productdrower', icon: <HomeIcon /> },
     { title: 'Shp-product', to: '/admin/shopadmin', icon: <ProductionQuantityLimitsIcon /> },
     { title: 'Admin-user', to: '/admin/adminLogin', icon: <PersonIcon /> },
     { title: 'Add-Coupon', to: '/admin/adminCoupon', icon: <LocalAtmIcon /> },
@@ -147,7 +145,7 @@ export default function MiniDrawer({ children }) {
                 <List>
                     {Drowerdata.map((text, index) => (
                         <ListItem
-                            key={text.title} // Using a unique key, assuming title is unique
+                            key={text.title} 
                             disablePadding
                             sx={{ display: 'block' }}
                             component={NavLink}
