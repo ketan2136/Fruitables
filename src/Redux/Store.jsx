@@ -1,5 +1,3 @@
-
-
 import { rootReducher } from "./reducher";
 import { applyMiddleware, createStore } from "redux";
 import storage from 'redux-persist/lib/storage'

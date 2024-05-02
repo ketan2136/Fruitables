@@ -9,11 +9,11 @@ const Product = () => {
 
     const shopVal = useSelector(state => state.shop);
     const products = shopVal.shop;
-    console.log('shopVal:', products);
+    // console.log('shopVal:', products);
 
-    const ProductDetails = products.filter(current => current.id === id);
-    // const ProductDetails = products.some(current => current.id === id);
-    console.log(ProductDetails);
+    const ProductDetails = products.filter(current => String(current.id) === id);
+    // const ProductDetails = products.some(current =>  .id === id);
+    // console.log(ProductDetails);
 
     const disPatch = useDispatch();
 
@@ -40,13 +40,13 @@ const Product = () => {
                             <div className="row g-4">
                                 {
                                     ProductDetails.map((v) => {
-                                        console.log(v.image)
+                                        // console.log(v.image)
                                         return (
                                             <>
                                                 <div className="col-lg-6">
-                                                    <div className="border rounded">
+                                                    <div className="border rounded products">
                                                         <a href="#">
-                                                            <img src={'../' + v.image} className="img-fluid " alt="image" />
+                                                            <img src={v.image} className="img-fluid " alt="image" />
                                                         </a>
                                                     </div>
                                                 </div>

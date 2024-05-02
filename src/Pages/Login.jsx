@@ -76,7 +76,6 @@ const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password)
             console.log('login successfully')
             const user = userCredential.user;
-            console.log(user.password);
             dispatch(getAuth({ email: user.email, password: user.providerId }))
             alert('login Successfully');
             // navigate("/")

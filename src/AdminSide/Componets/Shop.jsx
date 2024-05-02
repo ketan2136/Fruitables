@@ -19,6 +19,8 @@ const Shop = () => {
     const [imagePreview, setImagePreview] = React.useState('');
     const [open, setOpen] = React.useState(false);
     const [update, setUpdate] = React.useState(null);
+    console.log(update)
+    const isLoading = useSelector(state => state.shop.isLoading);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -60,10 +62,10 @@ const Shop = () => {
     ];
 
     const handleupdate = (data) => {
+        console.log(data);
         formik.setValues(data)
         handleClickOpen()
-        dispatch(editShop(data))
-        setUpdate(data)
+            setUpdate(data);
     }
 
     const handleDelete = (id) => {
@@ -87,15 +89,14 @@ const Shop = () => {
             image: '',
         },
         onSubmit: async (values, action) => {
-            // const imagePath = await uploadImage(values.image);
-            // console.log('file',imagePath);
+            console.log('file',values);
 
-            // if (update) {
-                
-            // } else {
+            if (update) {
+                dispatch(editShop(values))
+            } else {
                 const rNo = Math.floor(Math.random() * 1000)
                 dispatch(addShop({ ...values, id: rNo }));
-            // }
+            }
 
 
             action.resetForm();
@@ -107,76 +108,95 @@ const Shop = () => {
 
     return (
         <div>
-            <h1>Product</h1>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            margin="dense"
-                            id="fruite"
-                            name="fruite"
-                            label="Name"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={values.fruite}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+            {isLoading ? ( // Render admin panel only if not loading
+                // <h1>Loading...</h1>
+
+                <div className="containerss">
+                    <div className="holder">
+                        <div className="box"></div>
+                    </div>
+                    <div className="holder">
+                        <div className="box"></div>
+                    </div>
+                    <div className="holder">
+                        <div className="box"></div>
+                    </div>
+                </div>
+
+            ) : (
+                <>
+                    <h1>Product</h1>
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        Open form dialog
+                    </Button>
+                    <Dialog open={open} onClose={handleClose} style={{maxWidth:'100%'}}>
+                        <DialogTitle>Product</DialogTitle>
+                        <DialogContent>
+                            <form onSubmit={handleSubmit}>
+                                <TextField
+                                    margin="dense"
+                                    id="fruite"
+                                    name="fruite"
+                                    label="Name"
+                                    type="text"
+                                    fullWidth
+                                    variant="standard"
+                                    value={values.fruite}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <span style={{ color: 'red' }}>{errors.fruite && touched.fruite ? errors.fruite : null}  </span>
+                                <TextField
+                                    margin="dense"
+                                    id="description"
+                                    name="description"
+                                    label="description"
+                                    type="text"
+                                    variant="standard"
+                                    fullWidth
+                                    value={values.description}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <span style={{ color: 'red' }}>{errors.description && touched.description ? errors.description : null}  </span>
+                                <TextField
+                                    margin="dense"
+                                    id="price"
+                                    name="price"
+                                    label="Price"
+                                    type="text"
+                                    variant="standard"
+                                    fullWidth
+                                    value={values.price}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <span style={{ color: 'red' }}>{errors.price && touched.price ? errors.price : null}  </span>
+                                <input
+                                    id="image"
+                                    name="image"
+                                    type="file"
+                                    onChange={(event) => setFieldValue("image", event.target.files[0])}
+                                    onBlur={formik.handleBlur}
+                                />
+                                <span style={{ color: 'red' }}>{formik.errors.image && formik.touched.image ? formik.errors.image : null}</span>
+                                <img width={'150px'} height={'150px'} src={typeof values.image === "string" ? values.image : URL.createObjectURL(values.image)} />
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Cancel</Button>
+                                    <Button type="submit">ADD</Button>
+                                </DialogActions>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
+                    <div style={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={shopVal.shop}
+                            columns={columns}
+                            pageSize={5}
                         />
-                        <span style={{ color: 'red' }}>{errors.fruite && touched.fruite ? errors.fruite : null}  </span>
-                        <TextField
-                            margin="dense"
-                            id="description"
-                            name="description"
-                            label="description"
-                            type="text"
-                            variant="standard"
-                            fullWidth
-                            value={values.description}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
-                        <span style={{ color: 'red' }}>{errors.description && touched.description ? errors.description : null}  </span>
-                        <TextField
-                            margin="dense"
-                            id="price"
-                            name="price"
-                            label="Price"
-                            type="text"
-                            variant="standard"
-                            fullWidth
-                            value={values.price}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
-                        <span style={{ color: 'red' }}>{errors.price && touched.price ? errors.price : null}  </span>
-                        <input
-                            id="image"
-                            name="image"
-                            type="file"
-                            onChange={(event) => setFieldValue("image", event.target.files[0])}
-                            onBlur={formik.handleBlur}
-                        />
-                        <span style={{ color: 'red' }}>{formik.errors.image && formik.touched.image ? formik.errors.image : null}</span>
-                        <img width={'150px'} height={'150px'} src={typeof values.image === "string" ? values.image : URL.createObjectURL(values.image)} />
-                        <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button type="submit">Subscribe</Button>
-                        </DialogActions>
-                    </form>
-                </DialogContent>
-            </Dialog>
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={shopVal.shop}
-                    columns={columns}
-                    pageSize={5}
-                />
-            </div>
+                    </div>
+                </>
+            )}
         </div>
     )
 }

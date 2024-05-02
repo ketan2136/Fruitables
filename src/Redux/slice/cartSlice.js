@@ -32,7 +32,6 @@ export const cartSlice = createSlice({
       let item = state.item.findIndex((v) => v.cid === action.payload);
       console.log(item);
       state.item[item].qty++;
-      
 
       state.item = state.item;
       state.isLoading = state.false;
@@ -51,6 +50,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeCart, incrementCart, decrementCart } = cartSlice.actions;
+export const { addToCart, removeCart, incrementCart, decrementCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

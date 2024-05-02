@@ -13,6 +13,7 @@ export const getAuthNew = () => async (dispatch) => {
       await axios
         .get("http://localhost:3001/users")
         .then((response) => {
+          console.log(response);
           dispatch({ type: ADMIN_GET_LOGIN, payload: response.data });
         })
         .catch((error) => {

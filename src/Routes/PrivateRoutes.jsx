@@ -1,44 +1,58 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { addAuth, getAuth } from '../Redux/action/auth.action';
 import { getAuthNew } from '../Redux/action/newAuth.action';
-import { adminAddLoginGet } from '../Redux/action/admin.action';
-import { Email } from '@mui/icons-material';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoutes = () => {
 
-
+    const [loginCheck, setLoginCheck] = useState(false);
     const dispatch = useDispatch()
-
-    // useEffect(() => {
-    //     dispatch(adminAddLoginGet()); // Dispatch the getAuth action when the component mounts
-    // }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(getAuthNew());
-        // dispatch(getAuth());
-
-    }, []);
-
-    // const authVal = useSelector(state => state.auth);
-
-    // const userVal = useSelector(state => state.users);
     const userNewVal = useSelector(state => state.userNew);
     const userEmail = useSelector(state => state.auth);
 
-    // console.log(userEmail.user.email);
-    // console.log(userEmail.user.providerId);
 
 
+    // console.log(userNewVal.userNew);
+    // console.log(userVal.user);
 
-    console.log('New_auth', userEmail.user);
+
+    useEffect(() => {
+        dispatch(getAuthNew());
+    }, []);
+
+
+    // const hasTrueValue1 = Object.values(firebaseValue).map((value) => {
+    //     const newValue = Object.values(userAddemail).map((idata) => {
+    //         const datas = value === idata;
+
+    //         //   return datas
+    //         console.log(datas);
+    //     });
+    //     return newValue
+    // });
+
+    // console.log(hasTrueValue1);
+
+
+    // useEffect(() => {
+    //     if (userNew?.email === user?.email) {
+    //         setLoginCheck(true);
+
+    //     }
+    // }, [userNew, user])
+
+    // console.log("log for check", loginCheck);
+    // console.log('New_auth', userEmail.user);
     // console.log(userVal);
     // const userVal = useSelector(state => state.users);
 
     // const userNewVal = useSelector(state => state.userNew);
     // console.log(userVal);
 
+    // const sameEmail =  userNewVal?.userNew.some((v) => {
+    //     return userEmail.user.email === v.email;
+    // });
+    // console.log(sameEmail);
     const sameEmail = Array.isArray(userNewVal.userNew) && userNewVal.userNew.some((v) => {
         return userEmail.user.email === v.email;
     });
@@ -55,12 +69,12 @@ const PrivateRoutes = () => {
     return (
         <>
             {
-                sameEmail > 0 ? (
+                sameEmail ? (
                     <Outlet />
-                 ) : (
+                ) : (
                     <Navigate to="/logins" />
                 )
-            } 
+            }
         </>
     );
 }

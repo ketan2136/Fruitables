@@ -2,7 +2,7 @@ import { ADMIN_GET_LOGIN} from "../Actiontype";
 
 const initialState = {
   isLoadind: false,
-  userNew: {},
+  userNew: [],
   error: null,
 };
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { decrementCart, incrementCart, removeCart } from '../../../Redux/slice/cartSlice';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { Link } from 'react-router-dom';
 const CartDetails = () => {
 
     const shopVal = useSelector(state => state.shop);
@@ -13,9 +14,7 @@ const CartDetails = () => {
 
     let cartItems = cartVal.item.map((v) => {
         let cartData = shopVal.shop.find((m) => m.id === v.cid);
-
         let fData = { ...cartData, ...v };
-
         return fData;
     })
 
@@ -32,7 +31,6 @@ const CartDetails = () => {
         if (item && item.qty > 1) {
             dispatch(decrementCart(id));
         }
-
     }
 
     const handleRemove = (id) => {
@@ -63,9 +61,7 @@ const CartDetails = () => {
 
                                 {
                                     cartItems.map((v) => (
-
                                         <tr>
-                                           
                                             <th scope="row">
                                                 <div className="d-flex align-items-center">
                                                     <img src={v.image} className="img-fluid me-5 rounded-circle" style={{ width: 80, height: 80 }} alt />
@@ -168,9 +164,9 @@ const CartDetails = () => {
                                 </div>
                                 <div className="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
-                                    <p className="mb-0 pe-4"><CurrencyRupeeIcon />99.00</p>
+                                    <p className="mb-0 pe-4"><CurrencyRupeeIcon />{subtotal }</p>
                                 </div>
-                                <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
+                                <Link className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button"  to={'/chackout'}>Proceed Checkout</Link>
                             </div>
                         </div>
                     </div>

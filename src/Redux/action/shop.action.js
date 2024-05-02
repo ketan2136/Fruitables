@@ -37,14 +37,6 @@ export const getShop = () => async (dispatch) => {
     console.log(data.url);
     dispatch({ type: GET_SHOP, payload: data });
 
-    // await axios
-    // .get("http://localhost:3001/fruites")
-    // .then((response) => {
-    //   dispatch({ type: GET_SHOP, payload: response.data });
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
     dispatch({ type: LOADING_STOP });
   } catch (error) {
     console.error("Error adding shop:", error);
@@ -55,7 +47,6 @@ export const getShop = () => async (dispatch) => {
 export const addShop = (data) => async (dispatch) => {
   try {
     const rNo = Math.floor(Math.random() * 1000);
-
     const fileRef = ref(storage, "image/" + rNo + "_" + data.image.name);
     let idata = { ...data };
 
@@ -72,29 +63,11 @@ export const addShop = (data) => async (dispatch) => {
 
         const docref = await addDoc(collection(db, "shops"), idata);
         idata = { ...idata, id: docref.id };
-
-        // return {
-        //   id: docref.id,
-        //   image: url,
-        //   ...data,
-        //   "filre_name": rNo + "_" + data.image.name,
-        // };
       });
     });
     console.log(idata);
     dispatch({ type: ADD_SHOP, payload: { ...idata } });
     return idata;
-    // const docRef = await addDoc(collection(db, 'shops'), data);
-    // dispatch({ type: ADD_SHOP, payload: { id: docRef.id, ...data , image: data.image.name} });
-
-    // await axios
-    //   .post("http://localhost:3001/fruites", data)
-    //   .then((response) => {
-    //     dispatch({ type: ADD_SHOP, payload: response.data });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   } catch (error) {
     console.error("Error adding shop:", error);
   }
@@ -107,14 +80,18 @@ export const deleteShop = (data) => async (dispatch) => {
     console.log("Deleting shop:", data);
 
     const desertRef = ref(storage, "image/" + data.image_name);
-
-    await deleteObject(desertRef);
+    // console.log(desertRef);
+    // await deleteObject(desertRef);
     console.log("Image deleted successfully");
 
-    await deleteDoc(doc(db, "shops", data.id));
+    // await deleteDoc(doc(db, "shops", data.id));
     console.log("Document deleted successfully");
-
-    dispatch({ type: DELETE_SHOP, payload: data.id });
+    await deleteObject(desertRef).then(async () => {
+      await deleteDoc(doc(db, 'shops', data.id)).catch(err => console.log(err));
+      console.log("deleted success");
+  })
+  return data.id;
+    // dispatch({ type: DELETE_SHOP, payload: data.id });
     console.log("Deleted shop from Redux store");
   } catch (error) {
     console.log(error);
@@ -131,6 +108,7 @@ export const editShop = (data) => async (dispatch) => {
       console.log(data);
       dispatch({ type: EDIT_SHOP, payload: data });
       // return data;
+    
     } else {
       const fileRef = ref(storage, "image/" + data.image.name);
       let idata = { ...data };
@@ -151,13 +129,12 @@ export const editShop = (data) => async (dispatch) => {
         });
         console.log('New Upload File Uploaded');
       });
-     
+
       // console.log(idata);
-      // dispatch({ type: EDIT_SHOP, payload: {...idata} });
-      return idata;
+      dispatch({ type: EDIT_SHOP, payload: idata });
+      // return idata;
     }
 
-   
     // await axios
     //   .put("http://localhost:3001/fruites" + data.id)
     //   .then((response) => {
