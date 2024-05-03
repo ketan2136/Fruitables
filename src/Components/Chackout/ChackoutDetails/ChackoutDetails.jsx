@@ -7,8 +7,8 @@ const ChackoutDetails = () => {
 
     const shopVal = useSelector(state => state.shop);
     const cartVal = useSelector(state => state.cart);
-    console.log("cartVal", cartVal);
-    console.log('shopVal', shopVal);
+    // console.log("cartVal", cartVal);
+    // console.log('shopVal', shopVal);
 
     const dispatch = useDispatch()
 
@@ -20,11 +20,11 @@ const ChackoutDetails = () => {
         return fData;
     })
 
-    console.log(cartItems);
+    // console.log(cartItems);
 
     const subtotal = cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0);
 
-    console.log(subtotal);
+    // console.log(subtotal);
 
     let productSchema = yup.object({
         fname: yup.string().required(),
@@ -43,7 +43,6 @@ const ChackoutDetails = () => {
 
 
     const formik = useFormik({
-        validationSchema: productSchema,
         initialValues: {
             fname: '',
             lname: '',
@@ -57,24 +56,19 @@ const ChackoutDetails = () => {
             Accounts: '',
             description: '',
         },
-        onSubmit: async (values, action) => {
-            console.log('file', values);
-
-            // if (update) {
-            //     dispatch(editShop(values))
-            // } else {
-            //     const rNo = Math.floor(Math.random() * 1000)
-            //     dispatch(addShop({ ...values, id: rNo }));
-            // }
-
-
-            action.resetForm();
+        validationSchema: productSchema,
+        onSubmit: (values, action) => {
+            console.log('Form submitted!');
+            console.log('Form values:', values); // Log the form values
+            // action.resetForm();
         },
     });
 
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } = formik;
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = formik;
 
-
+const handleClick = () => {
+    console.log('uuuuuuuuuuuu');
+}
 
 
     return (
@@ -92,6 +86,7 @@ const ChackoutDetails = () => {
                                             type="text"
                                             className="form-control"
                                             name='fname'
+                                            id='fname'
                                             value={values.fname}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
@@ -106,6 +101,7 @@ const ChackoutDetails = () => {
                                             type="text"
                                             className="form-control"
                                             name='lname'
+                                            id='lname'
                                             value={values.lname}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
@@ -120,6 +116,7 @@ const ChackoutDetails = () => {
                                     type="text"
                                     className="form-control"
                                     name='company'
+                                    id='company'
                                     value={values.company}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -133,6 +130,7 @@ const ChackoutDetails = () => {
                                     className="form-control"
                                     placeholder="House Number Street Name"
                                     name='address'
+                                    id='address'
                                     value={values.address}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -145,6 +143,7 @@ const ChackoutDetails = () => {
                                     type="text"
                                     className="form-control"
                                     name='city'
+                                    id='city'
                                     value={values.city}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -157,6 +156,7 @@ const ChackoutDetails = () => {
                                     type="text"
                                     className="form-control"
                                     name='country'
+                                    id='country'
                                     value={values.country}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -169,6 +169,7 @@ const ChackoutDetails = () => {
                                     type="text"
                                     className="form-control"
                                     name='postcode'
+                                    id='postcode'
                                     value={values.postcode}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -182,6 +183,7 @@ const ChackoutDetails = () => {
                                     type="number"
                                     className="form-control"
                                     name='number'
+                                    id='number'
                                     value={values.number}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -194,6 +196,7 @@ const ChackoutDetails = () => {
                                     type="email"
                                     className="form-control"
                                     name='email'
+                                    id='email'
                                     value={values.email}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
@@ -206,16 +209,16 @@ const ChackoutDetails = () => {
                                     className="form-check-input"
                                     id="Account-1" name="Accounts"
                                     defaultValue="Accounts"
-                                   
+
                                 />
-                                
+
                                 <label className="form-check-label" htmlFor="Account-1">Create an account?</label>
                             </div>
                             <hr />
                             <div className="form-check my-3">
                                 <input
                                     className="form-check-input"
-                                    type="checkbox" id="Address-1"
+                                    type="checkbox" id="Address"
                                     name="Address"
                                     defaultValue="Address"
                                 />
@@ -225,6 +228,7 @@ const ChackoutDetails = () => {
                                 <textarea
                                     ame="text"
                                     name='description'
+                                    id='description'
                                     className="form-control"
                                     spellCheck="false" cols={30} rows={11}
                                     placeholder="Oreder Notes (Optional)"

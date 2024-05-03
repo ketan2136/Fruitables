@@ -1,6 +1,30 @@
+import { useFormik } from 'formik';
 import React from 'react'
-
+import * as yup from 'yup'
 const ContactDetails = () => {
+    let productSchema = yup.object({
+        name: yup.string().required(),
+        description: yup.string().required(),
+        email: yup.string().required(),
+    });
+
+    const formik = useFormik({
+        validationSchema: productSchema,
+        initialValues: {
+            name: '',
+            description: '',
+            email: '',
+        },
+        onSubmit: (values, action) => {
+            console.log('file', values);
+
+
+            action.resetForm();
+        },
+    });
+
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } = formik;
+
     return (
         <div>
             <div className="container-fluid contact py-5">
@@ -19,10 +43,39 @@ const ContactDetails = () => {
                                 </div>
                             </div>
                             <div className="col-lg-7">
-                                <form action className>
-                                    <input type="text" className="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name" />
-                                    <input type="email" className="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email" />
-                                    <textarea className="w-100 form-control border-0 mb-4" rows={5} cols={10} placeholder="Your Message" defaultValue={""} />
+                                <form onSubmit={handleSubmit} className>
+                                    <input
+                                        type="text"
+                                        id='name'
+                                        name='name'
+                                        className="w-100 form-control border-0 py-3 mb-4"
+                                        placeholder="Your Name"
+                                        value={values.name}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    <span style={{ color: 'red' }}>{errors.name && touched.name ? errors.name : null}</span>
+
+                                    <input
+                                        type="email"
+                                        className="w-100 form-control border-0 py-3 mb-4"
+                                        placeholder="Enter Your Email"
+                                        id='email'
+                                        name='email'
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.email}
+                                    />
+                                    <span style={{color: 'red'}}>{errors.email && touched.email ? errors.email : null}</span>
+                                    <textarea
+                                        className="w-100 form-control border-0 mb-4"
+                                        rows={5} cols={10} placeholder="Your Message"
+                                        id='description' 
+                                        name='description'
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    <span style={{color:'red'}}>{errors.description && touched.description ? errors.description : null}</span>
                                     <button className="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
                                 </form>
                             </div>

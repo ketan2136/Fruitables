@@ -7,6 +7,7 @@ import { authReducher } from "./auth.reducher";
 import { adminLoginReducher } from "./admin.reducher";
 import { newAuthReducer } from "./new.reducer";
 import couponSlice from "../slice/couponSlice";
+import { reviewReducer } from "./review.reducer";
 
 
 export const rootReducher = combineReducers ({
@@ -17,4 +18,6 @@ export const rootReducher = combineReducers ({
     users: adminLoginReducher,
     userNew: newAuthReducer,
     coupon: couponSlice,
+    review: reviewReducer,
+
 })

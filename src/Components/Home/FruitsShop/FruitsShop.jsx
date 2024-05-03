@@ -11,6 +11,8 @@ const FruitsShop = () => {
     }, [dispatch]);
 
     const shopVal = useSelector(state => state.shop);
+
+    
     return (
         <>
             <div className="container-fluid fruite py-5">

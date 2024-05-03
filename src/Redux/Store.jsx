@@ -10,7 +10,7 @@ export const configureStore = () => {
     const persistConfig = {
         key: 'root',
         storage: storage,
-        whitelist: ['facility', 'auth', 'cart', 'users', 'userNew'] 
+        whitelist: ['facility', 'auth', 'cart', 'users', 'userNew', 'review'] 
     };
 
     // const sagaMiddleware = createSagaMiddleware();

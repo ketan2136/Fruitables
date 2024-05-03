@@ -1,6 +1,16 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import StarRatings from 'react-star-ratings';
 const BestsalerProduct = () => {
+
+    const shopVal = useSelector(state => state.shop);
+    console.log(shopVal.shop)
+
+    
+
+  
+
     return (
         <>
             <div className="container-fluid py-5">
@@ -9,8 +19,40 @@ const BestsalerProduct = () => {
                         <h1 className="display-4">Bestseller Products</h1>
                         <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
                     </div>
+                    
                     <div className="row g-4">
-                        <div className="col-lg-6 col-xl-4">
+                        {
+                            shopVal.shop.map((v, i) => {
+                                if (i < 6) {
+                                    return (
+                                        <div className="col-lg-6 col-xl-4">
+                                            <div className="p-4 rounded bg-light">
+                                                <div className="row align-items">
+                                                    <div className="col-6">
+                                                        <div className='bestsellerProduct'>
+                                                            <img src={v.image} className="img-fluid rounded-circle w-100" alt />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-6">
+                                                        <a href="#" className="h5">{v.fruite}</a>
+                                                        <div className="d-flex my-3">
+                                                            <i className="fas fa-star text-primary" />
+                                                            <i className="fas fa-star text-primary" />
+                                                            <i className="fas fa-star text-primary" />
+                                                            <i className="fas fa-star text-primary" />
+                                                            <i className="fas fa-star" />
+                                                        </div>
+                                                        <h4 className="mb-3"><CurrencyRupeeIcon />{v.price} </h4>
+                                                        <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
+                        {/* <div className="col-lg-6 col-xl-4">
                             <div className="p-4 rounded bg-light">
                                 <div className="row align-items-center">
                                     <div className="col-6">
@@ -135,7 +177,9 @@ const BestsalerProduct = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
+
+
                         <div className="col-md-6 col-lg-6 col-xl-3">
                             <div className="text-center">
                                 <img src="img/fruite-item-1.jpg" className="img-fluid rounded" alt />

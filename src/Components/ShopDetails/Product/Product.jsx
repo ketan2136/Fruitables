@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { addToCart } from '../../../Redux/slice/cartSlice';
+import StarRatings from 'react-star-ratings';
+import { useFormik } from 'formik';
+import * as yup from 'yup'
+import { addReview } from '../../../Redux/action/review.action';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const Product = () => {
     const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
@@ -19,7 +24,6 @@ const Product = () => {
 
     const handlecart = (id) => {
         disPatch(addToCart({ cid: id, qty: quantity }))
-        console.log('item', id);
     }
 
     const handlePlus = () => {
@@ -30,6 +34,43 @@ const Product = () => {
             setQuantity(prevQuantity => prevQuantity + 1);
         }
     }
+
+    const reviews = useSelector(state => state.review);
+    console.log(reviews.review);
+
+    const [rating, setRating] = useState(0);
+
+    const handleChangerate = (newRating) => {
+        setRating(newRating);
+    };
+
+
+    let productSchema = yup.object({
+        name: yup.string().required(),
+        description: yup.string().required(),
+        email: yup.mixed().required("please upload file"),
+    });
+
+    const formik = useFormik({
+        validationSchema: productSchema,
+        initialValues: {
+            name: '',
+            description: '',
+            email: '',
+            // rating: 0
+        },
+        onSubmit: async (values, action) => {
+            values.rating = rating;
+            const date = new Date();
+            console.log(date.toDateString());
+            disPatch(addReview({ ...values, date: date.toDateString() }))
+
+            action.resetForm();
+        },
+    });
+
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue } = formik;
+
 
     return (
         <div>
@@ -53,7 +94,8 @@ const Product = () => {
                                                 <div className="col-lg-6">
                                                     <h4 className="fw-bold mb-3">{v.fruite}</h4>
                                                     <p className="mb-3">Category: Vegetables</p>
-                                                    <h5 className="fw-bold mb-3">{ProductDetails.price}</h5>
+                                                    <h5 className="fw-bold mb-3"><CurrencyRupeeIcon />{v.price}</h5>
+
                                                     <div className="d-flex mb-4">
                                                         <i className="fa fa-star text-secondary" />
                                                         <i className="fa fa-star text-secondary" />
@@ -61,6 +103,7 @@ const Product = () => {
                                                         <i className="fa fa-star text-secondary" />
                                                         <i className="fa fa-star" />
                                                     </div>
+
                                                     <p className="mb-4">{v.description}</p>
                                                     <p className="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
                                                     <div className="input-group quantity mb-5" style={{ width: 100 }}>
@@ -76,7 +119,6 @@ const Product = () => {
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    {/* <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={() => handlecart}><i className="fa fa-shopping-bag me-2 text-primary" /> + Add to cart</a> */}
                                                     <button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={() => handlecart(v.id)}><i className="fa fa-shopping-bag me-2 text-primary" /> + Add to cart</button>
                                                 </div>
                                             </>
@@ -184,25 +226,31 @@ const Product = () => {
                                             </div>
                                         </div>
                                         <div className="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                                            <div className="d-flex">
-                                                <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
-                                                <div className>
-                                                    <p className="mb-2" style={{ fontSize: 14 }}>April 12, 2024</p>
-                                                    <div className="d-flex justify-content-between">
-                                                        <h5>Jason Smith</h5>
-                                                        <div className="d-flex mb-3">
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star" />
+                                            {
+                                                reviews.review.map((v) => (
+                                                    <div className="d-flex">
+                                                        <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
+                                                        <div className>
+                                                            <p className="mb-2" style={{ fontSize: 14 }}>{v.date}</p>
+                                                            <div className="d-flex justify-content-between">
+                                                                <h5>{v.name}</h5>
+                                                                <StarRatings
+                                                                    rating={v.rating} // Pass the rating value directly to the rating prop
+                                                                    numberOfStars={5}
+                                                                    name={`rating`} // Use a unique name for each rating
+                                                                    starRatedColor="orange"
+                                                                    starDimension="20px"
+                                                                    starSpacing="2px"
+                                                                /> 
+                                                            </div>
+                                                            <p>{v.description}</p>
                                                         </div>
                                                     </div>
-                                                    <p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
-                                                        words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex">
+                                                ))
+
+                                            }
+
+                                            {/* <div className="d-flex">
                                                 <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
                                                 <div className>
                                                     <p className="mb-2" style={{ fontSize: 14 }}>April 12, 2024</p>
@@ -219,7 +267,7 @@ const Product = () => {
                                                     <p className="text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
                                                         words etc. Susp endisse ultricies nisi vel quam suscipit </p>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="tab-pane" id="nav-vision" role="tabpanel">
                                             <p className="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
@@ -229,37 +277,74 @@ const Product = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <form action="#">
+                                <form onSubmit={handleSubmit}>
                                     <h4 className="mb-5 fw-bold">Leave a Reply</h4>
                                     <div className="row g-4">
                                         <div className="col-lg-6">
                                             <div className="border-bottom rounded">
-                                                <input type="text" className="form-control border-0 me-4" placeholder="Yur Name *" />
+                                                <input
+                                                    type="text"
+                                                    className="form-control border-0 me-4"
+                                                    placeholder="Yur Name *"
+                                                    id='name'
+                                                    name='name'
+                                                    value={values.name}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                />
                                             </div>
+                                            <span style={{ color: 'red' }}>{errors.name && touched.name ? errors.name : null}</span>
                                         </div>
                                         <div className="col-lg-6">
                                             <div className="border-bottom rounded">
-                                                <input type="email" className="form-control border-0" placeholder="Your Email *" />
+                                                <input
+                                                    type="email"
+                                                    className="form-control border-0"
+                                                    placeholder="Your Email *"
+                                                    id='email'
+                                                    name='email'
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                />
                                             </div>
+                                            <span style={{ color: 'red' }}>{errors.email && touched.email ? errors.email : null}</span>
                                         </div>
                                         <div className="col-lg-12">
                                             <div className="border-bottom rounded my-4">
-                                                <textarea name id className="form-control border-0" cols={30} rows={8} placeholder="Your Review *" spellCheck="false" defaultValue={""} />
+                                                <textarea
+                                                    className="form-control border-0"
+                                                    cols={30} rows={8}
+                                                    placeholder="Your Review *"
+                                                    spellCheck="false"
+                                                    id='description'
+                                                    name='description'
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                />
                                             </div>
+                                            <span style={{ color: 'red' }}>{errors.description && touched.description ? errors.description : null}</span>
                                         </div>
                                         <div className="col-lg-12">
                                             <div className="d-flex justify-content-between py-3 mb-5">
                                                 <div className="d-flex align-items-center">
                                                     <p className="mb-0 me-3">Please rate:</p>
-                                                    <div className="d-flex align-items-center" style={{ fontSize: 12 }}>
-                                                        <i className="fa fa-star text-muted" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                    </div>
+                                                    <StarRatings
+                                                        rating={rating}
+                                                        changeRating={handleChangerate}
+                                                        numberOfStars={5}
+                                                        name='rating'
+                                                        id='rating'
+                                                        starRatedColor="orange"
+                                                        starDimension="20px"
+                                                        starSpacing="2px"
+                                                        value={values.rating}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                    />
                                                 </div>
-                                                <a href="#" className="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
+                                                <span style={{ color: 'red' }}>{errors.rating && touched.rating ? errors.rating : null}</span>
+                                                <button type='submit' className="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</button>
                                             </div>
                                         </div>
                                     </div>

@@ -29,12 +29,13 @@ export const EDIT_SHOP = "EDIT_SHOP";
 export const NEWAUTH_GET = "NEWAUTH_GET";
 export const NEWAUTH_ADD = "NEWAUTH_ADD";
 
-
-
 //login
-
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const FORGOT_REQUEST = "FORGOT_REQUEST";
 export const LOADING_START = "LOADING_START";
 export const LOADING_STOP = "LOADING_STOP";
+
+
+// review 
+export const ADD_REVIEW = 'ADD_REVIEW';

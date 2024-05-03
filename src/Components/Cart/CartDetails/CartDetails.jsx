@@ -7,8 +7,8 @@ const CartDetails = () => {
 
     const shopVal = useSelector(state => state.shop);
     const cartVal = useSelector(state => state.cart);
-    console.log("cartVal",cartVal);
-    console.log('shopVal',shopVal);
+    console.log("cartVal", cartVal);
+    console.log('shopVal', shopVal);
 
     const dispatch = useDispatch()
 
@@ -58,7 +58,6 @@ const CartDetails = () => {
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {
                                     cartItems.map((v) => (
                                         <tr>
@@ -76,20 +75,20 @@ const CartDetails = () => {
                                             <td>
                                                 <div className="input-group quantity mt-4" style={{ width: 100 }}>
                                                     <div className="input-group-btn">
-                                                        <button onClick={()=>handleCartdecrement(v.id)} className="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                        <button onClick={() => handleCartdecrement(v.id)} className="btn btn-sm btn-minus rounded-circle bg-light border">
                                                             <i className="fa fa-minus" />
                                                         </button>
                                                     </div>
-                                                    <p className="form-control-sm text-center border-0">{v.qty }</p>
+                                                    <p className="form-control-sm text-center border-0">{v.qty}</p>
                                                     <div className="input-group-btn">
-                                                        <button onClick={()=>handleCartIncrement(v.id)} className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                        <button onClick={() => handleCartIncrement(v.id)} className="btn btn-sm btn-plus rounded-circle bg-light border">
                                                             <i className="fa fa-plus" />
                                                         </button>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <p className="mb-0 mt-4"><CurrencyRupeeIcon/>{v.qty * v.price}</p>
+                                                <p className="mb-0 mt-4"><CurrencyRupeeIcon />{v.qty * v.price}</p>
                                             </td>
                                             <td>
                                                 <button onClick={() => handleRemove(v.id)} className="btn btn-md rounded-circle bg-light border mt-4">
@@ -164,9 +163,9 @@ const CartDetails = () => {
                                 </div>
                                 <div className="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
-                                    <p className="mb-0 pe-4"><CurrencyRupeeIcon />{subtotal }</p>
+                                    <p className="mb-0 pe-4"><CurrencyRupeeIcon />{subtotal}</p>
                                 </div>
-                                <Link className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button"  to={'/chackout'}>Proceed Checkout</Link>
+                                <Link className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button" to={'/chackout'}>Proceed Checkout</Link>
                             </div>
                         </div>
                     </div>
