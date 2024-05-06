@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getShop } from '../../../Redux/action/shop.action';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { addToCart } from '../../../Redux/slice/cartSlice';
 
 const FruitsShop = () => {
     const dispatch = useDispatch();
@@ -12,7 +13,12 @@ const FruitsShop = () => {
 
     const shopVal = useSelector(state => state.shop);
 
-    
+    const handlecart = (id) => {
+        dispatch(addToCart({ cid: id, qty: 1 }));
+        console.log('item', id);
+    };
+
+
     return (
         <>
             <div className="container-fluid fruite py-5">
@@ -71,7 +77,10 @@ const FruitsShop = () => {
                                                                 <p>{v.description}</p>
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
                                                                     <p className="text-dark fs-5 fw-bold mb-0"> <CurrencyRupeeIcon />{v.price}</p>
-                                                                    <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                                    {/* <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a> */}
+                                                                    <button className="btn border border-secondary rounded-pill px-3 text-primary" onClick={() => handlecart(v.id)}>
+                                                                        <i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>

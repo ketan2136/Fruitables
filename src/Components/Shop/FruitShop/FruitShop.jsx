@@ -317,7 +317,7 @@ const FruitShop = () => {
     const { shop, isLoading } = useSelector(state => state.shop);
 
     useEffect(() => {
-        setFilteredData(shop); // Update filteredData when shop changes
+        setFilteredData(shop); 
     }, [shop]);
 
     const disPatch = useDispatch();

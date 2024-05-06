@@ -767,3 +767,13 @@
 .off {
   color: '#000',
 }
+
+.owl-carousel.owl-drag .owl-item {
+  padding: 0 15px;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

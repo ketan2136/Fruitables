@@ -12,8 +12,8 @@ const PrivateRoutes = () => {
 
 
 
-    // console.log(userNewVal.userNew);
-    // console.log(userVal.user);
+    console.log(userNewVal);
+    console.log(userEmail);
 
 
     useEffect(() => {

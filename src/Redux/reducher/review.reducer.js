@@ -1,4 +1,4 @@
-import { ADD_REVIEW } from "../Actiontype";
+import { ADD_REVIEW, GET_REVIEW } from "../Actiontype";
 
 const initialState = {
   isLoading: false,
@@ -9,6 +9,11 @@ const initialState = {
 export const reviewReducer = (state = initialState, action) => {
   console.log(action);
   switch (action.type) {
+    case GET_REVIEW:
+      return {
+        ...state,
+        review:  action.payload
+      };
     case ADD_REVIEW:
       return {
         ...state,
@@ -18,3 +23,5 @@ export const reviewReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+

@@ -11,9 +11,11 @@ const Navbar = ({ user, login, logout }) => {
     const cartVal = useSelector(state => state.cart);
 
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector(state => state.auth);
+    const isAuthenticated = useSelector(state => state.auth || []);
+    console.log(isAuthenticated);
 
-    let isLoggedIn = (Object.keys(isAuthenticated.user).length === 0) ? false : true;
+    // let isLoggedIn = (Object.keys(isAuthenticated.user).length === 0) ? false : true;
+    // console.log(isLoggedIn);
 
     let cartCount = 0;
 
@@ -84,15 +86,15 @@ const Navbar = ({ user, login, logout }) => {
                                 {/* <Link to={'/logins'}  onClick={login} className="my-auto">
                                     <i className="fas fa-user fa-2x" />
                                 </Link> */}
-                                {
+                                {/* {
                                     isLoggedIn ?
                                         <Link to={'/logins'} onClick={handlelogout} className="my-auto">
-                                            Logout<i className="fa-solid fa-right-from-bracket"></i>
-                                        </Link> :
+                                            Logout<i className="fa-solid fa-right-from-bracket"></i> */}
+                                        {/* </Link> : */}
                                         <Link to={'/logins'} onClick={login} className="my-auto">
                                             <i className="fas fa-user fa-2x" />
                                         </Link>
-                                }
+                                 {/* }  */}
                             </div>
                         </div>
                     </nav>

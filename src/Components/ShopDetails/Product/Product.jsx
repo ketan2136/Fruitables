@@ -35,8 +35,10 @@ const Product = () => {
         }
     }
 
+    // const reviews = useSelector(state => state.review);
+    // console.log(reviews.review);
     const reviews = useSelector(state => state.review);
-    console.log(reviews.review);
+console.log(reviews);
 
     const [rating, setRating] = useState(0);
 
@@ -60,6 +62,7 @@ const Product = () => {
             // rating: 0
         },
         onSubmit: async (values, action) => {
+            console.log(values);
             values.rating = rating;
             const date = new Date();
             console.log(date.toDateString());
@@ -125,45 +128,6 @@ const Product = () => {
                                         )
                                     })
                                 }
-
-                                {/* <div className="col-lg-6">
-                                    <div className="border rounded">
-                                        <a href="#">
-                                            <img src={ProductDetails.image} className="img-fluid rounded" alt="Image" />
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6">
-                                    <h4 className="fw-bold mb-3">Brocoli</h4>
-                                    <p className="mb-3">Category: Vegetables</p>
-                                    <h5 className="fw-bold mb-3">{ProductDetails.price}</h5>
-                                    <div className="d-flex mb-4">
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star" />
-                                    </div>
-                                    <p className="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-                                    <p className="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
-                                    <div className="input-group quantity mb-5" style={{ width: 100 }}>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                <i className="fa fa-minus" />
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i className="fa fa-plus" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
-                                </div> */}
-
-
-
 
                                 <div className="col-lg-12">
                                     <nav>
