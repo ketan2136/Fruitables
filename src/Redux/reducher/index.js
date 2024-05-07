@@ -8,6 +8,7 @@ import { adminLoginReducher } from "./admin.reducher";
 import { newAuthReducer } from "./new.reducer";
 import couponSlice from "../slice/couponSlice";
 import { reviewReducer } from "./review.reducer";
+import { pdfReducer } from "./pdfData.reducer";
 
 
 export const rootReducher = combineReducers ({
@@ -19,5 +20,5 @@ export const rootReducher = combineReducers ({
     userNew: newAuthReducer,
     coupon: couponSlice,
     review: reviewReducer,
-
+    pdf: pdfReducer,
 })

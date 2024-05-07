@@ -3,13 +3,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image } from '@react-pdf/renderer';
+import { addpdf } from '../../../Redux/action/pdfData.action';
+
 const ChackoutDetails = () => {
 
     const shopVal = useSelector(state => state.shop);
     const cartVal = useSelector(state => state.cart);
-    // console.log("cartVal", cartVal);
-    // console.log('shopVal', shopVal);
+    const pdfVal = useSelector(state => state.pdf);
 
+    console.log(pdfVal);
+
+    // const dispatch = useDispatch()
+
+    const styles = StyleSheet.create({
+        page: {
+            flexDirection: 'row',
+            backgroundColor: '#E4E4E4',
+        },
+        section: {
+            margin: 10,
+            padding: 10,
+            flexGrow: 1,
+        },
+        image: {
+            width: 50, 
+            height: 50, 
+        },
+    });
     const dispatch = useDispatch()
 
     let cartItems = cartVal.item.map((v) => {
@@ -19,14 +40,23 @@ const ChackoutDetails = () => {
 
         return fData;
     })
-
-    // console.log(cartItems);
-
     const subtotal = cartItems.reduce((acc, item) => acc + (item.qty * item.price), 0);
 
-    // console.log(subtotal);
+    const calculateDiscount = () => {
+        let discountPercentage = 0;
+        let discount = 0;
+        if (subtotal > 2000) {
+            discountPercentage = 20;
+        } else if (subtotal > 1000) {
+            discountPercentage = 10;
+        }
+        discount = subtotal * (discountPercentage / 100);
+        return { discountPercentage, discount };
+    };
+    const { discountPercentage, discount } = calculateDiscount();
+    const discountedTotal = subtotal - discount;
 
-    let productSchema = yup.object({
+    let cartSchema = yup.object({
         fname: yup.string().required(),
         lname: yup.string().required(),
         company: yup.string().required(),
@@ -36,11 +66,8 @@ const ChackoutDetails = () => {
         postcode: yup.string().required(),
         number: yup.string().required(),
         email: yup.string().required(),
-        Accounts: yup.string().required(),
         description: yup.string().required(),
-        image: yup.mixed().required("please upload file"),
     });
-
 
     const formik = useFormik({
         initialValues: {
@@ -53,23 +80,25 @@ const ChackoutDetails = () => {
             postcode: '',
             number: '',
             email: '',
-            Accounts: '',
+            accounts: false,
+            dfaddress: false,
             description: '',
+            dataMap: cartItems,
+            discountPercentage: discountPercentage,
+            discount: discount,
+            discountedTotal: discountedTotal,
+            subtotal: subtotal,
+            delivery: false
         },
-        validationSchema: productSchema,
-        onSubmit: (values, action) => {
+        validationSchema: cartSchema,
+        onSubmit: (values) => {
             console.log('Form submitted!');
-            console.log('Form values:', values); // Log the form values
-            // action.resetForm();
+            console.log('Form values:', values);
+            dispatch(addpdf(values))
         },
     });
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = formik;
-
-const handleClick = () => {
-    console.log('uuuuuuuuuuuu');
-}
-
 
     return (
         <div className="container-fluid py-5">
@@ -207,20 +236,20 @@ const handleClick = () => {
                                 <input
                                     type="checkbox"
                                     className="form-check-input"
-                                    id="Account-1" name="Accounts"
-                                    defaultValue="Accounts"
-
+                                    name="accounts"
+                                    checked={values.accounts} // Binding value to the Formik state
+                                    onChange={handleChange} // Handling change event
                                 />
-
                                 <label className="form-check-label" htmlFor="Account-1">Create an account?</label>
                             </div>
                             <hr />
                             <div className="form-check my-3">
                                 <input
                                     className="form-check-input"
-                                    type="checkbox" id="Address"
-                                    name="Address"
-                                    defaultValue="Address"
+                                    type="checkbox"
+                                    name="dfaddress"
+                                    checked={values.dfaddress} // Binding value to the Formik state
+                                    onChange={handleChange}
                                 />
                                 <label className="form-check-label" htmlFor="Address-1">Ship to a different address?</label>
                             </div>
@@ -237,7 +266,6 @@ const handleClick = () => {
                                     onChange={handleChange}
                                 />
                                 <span style={{ color: 'red' }}>{errors.description && touched.description ? errors.description : null}  </span>
-
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-6 col-xl-5">
@@ -264,69 +292,30 @@ const handleClick = () => {
                                                         </th>
                                                         <td className="py-5">{v.fruite}</td>
                                                         <td className="py-5"><CurrencyRupeeIcon />{v.price}</td>
-                                                        <td className="py-5">{v.qty}</td>
+                                                        <td className="py-5" style={{ textAlign: 'center' }}>{v.qty}</td>
                                                         <td className="py-5"><CurrencyRupeeIcon />{v.qty * v.price}</td>
                                                     </tr>
                                                 )
                                             })
                                         }
 
-                                        {/* <tr>
-                                            <th scope="row">
-                                                <div className="d-flex align-items-center mt-2">
-                                                    <img src="img/vegetable-item-5.jpg" className="img-fluid rounded-circle" style={{ width: 90, height: 90 }} alt />
-                                                </div>
-                                            </th>
-                                            <td className="py-5">Potatoes</td>
-                                            <td className="py-5">$69.00</td>
-                                            <td className="py-5">2</td>
-                                            <td className="py-5">$138.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                <div className="d-flex align-items-center mt-2">
-                                                    <img src="img/vegetable-item-3.png" className="img-fluid rounded-circle" style={{ width: 90, height: 90 }} alt />
-                                                </div>
-                                            </th>
-                                            <td className="py-5">Big Banana</td>
-                                            <td className="py-5">$69.00</td>
-                                            <td className="py-5">2</td>
-                                            <td className="py-5">$138.00</td>
-                                        </tr>
                                         <tr>
                                             <th scope="row">
                                             </th>
+                                            <td className="py-5">
+                                                <p className="mb-0 text-dark text-uppercase py-3">Discount ({discountPercentage}%):</p>
+                                            </td>
                                             <td className="py-5" />
                                             <td className="py-5" />
-                                            <td className="py-5">
-                                                <p className="mb-0 text-dark py-3">Subtotal</p>
-                                            </td>
-                                            <td className="py-5">
-                                                <div className="py-3 border-bottom border-top">
-                                                    <p className="mb-0 text-dark">$414.00</p>
-                                                </div>
-                                            </td>
-                                        </tr> */}
-                                        <tr>
-                                            <th scope="row">
-                                            </th>
-                                            <td className="py-5">
-                                                <p className="mb-0 text-dark py-4">Shipping</p>
-                                            </td>
-                                            <td colSpan={3} className="py-5">
-                                                <div className="form-check text-start">
-                                                    <input type="checkbox" className="form-check-input bg-primary border-0" id="Shipping-1" name="Shipping-1" defaultValue="Shipping" />
-                                                    <label className="form-check-label" htmlFor="Shipping-1">Free Shipping</label>
-                                                </div>
-                                                <div className="form-check text-start">
-                                                    <input type="checkbox" className="form-check-input bg-primary border-0" id="Shipping-2" name="Shipping-1" defaultValue="Shipping" />
-                                                    <label className="form-check-label" htmlFor="Shipping-2">Flat rate: $15.00</label>
-                                                </div>
-                                                <div className="form-check text-start">
-                                                    <input type="checkbox" className="form-check-input bg-primary border-0" id="Shipping-3" name="Shipping-1" defaultValue="Shipping" />
-                                                    <label className="form-check-label" htmlFor="Shipping-3">Local Pickup: $8.00</label>
-                                                </div>
-                                            </td>
+                                            {discountPercentage > 0 && (
+                                                <td className="py-5">
+                                                    <div className="d-flex justify-content-between">
+                                                        <div>
+                                                            <p className="mb-0 text-dark"><CurrencyRupeeIcon />{discount.toFixed(2)}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            )}
                                         </tr>
                                         <tr>
                                             <th scope="row">
@@ -338,7 +327,7 @@ const handleClick = () => {
                                             <td className="py-5" />
                                             <td className="py-5">
                                                 <div className="py-3 border-bottom border-top">
-                                                    <p className="mb-0 text-dark"><CurrencyRupeeIcon />{subtotal}</p>
+                                                    <p className="mb-0 text-dark"><CurrencyRupeeIcon />{discountedTotal}</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -348,24 +337,14 @@ const handleClick = () => {
                             <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                                 <div className="col-12">
                                     <div className="form-check text-start my-3">
-                                        <input type="checkbox" className="form-check-input bg-primary border-0" id="Transfer-1" name="Transfer" defaultValue="Transfer" />
-                                        <label className="form-check-label" htmlFor="Transfer-1">Direct Bank Transfer</label>
-                                    </div>
-                                    <p className="text-start text-dark">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                                </div>
-                            </div>
-                            <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
-                                <div className="col-12">
-                                    <div className="form-check text-start my-3">
-                                        <input type="checkbox" className="form-check-input bg-primary border-0" id="Payments-1" name="Payments" defaultValue="Payments" />
-                                        <label className="form-check-label" htmlFor="Payments-1">Check Payments</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
-                                <div className="col-12">
-                                    <div className="form-check text-start my-3">
-                                        <input type="checkbox" className="form-check-input bg-primary border-0" id="Delivery-1" name="Delivery" defaultValue="Delivery" />
+                                        <input 
+                                        type="checkbox" 
+                                        className="form-check-input bg-primary border-0" 
+                                        id="delivery-1" 
+                                        name="delivery" 
+                                        checked={values.delivery} // Binding value to the Formik state
+                                        onChange={handleChange}
+                                         />
                                         <label className="form-check-label" htmlFor="Delivery-1">Cash On Delivery</label>
                                     </div>
                                 </div>
@@ -379,12 +358,65 @@ const handleClick = () => {
                                 </div>
                             </div>
                             <div className="row g-4 text-center align-items-center justify-content-center pt-4">
-                                <button type="submit" className="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place Order</button>
+                                <button className="btn border-secondary py-3 px-4  w-100 text-primary" type='submit'>Place Order</button>
                             </div>
                         </div>
                     </div>
+                    {/* <button className="btn border-secondary py-3 px-4  w-100 text-primary" type='submit' onClick={handleValue}>Place Order</button> */}
+
                 </form>
+                <div id="formValues"></div>
             </div>
+
+            {pdfVal.data && pdfVal.data.length > 0 && (
+                <PDFDownloadLink
+                    document={
+                        <Document>
+                            <Page size="A4">
+                                <View>
+                                    {pdfVal.data.map((item, index) => (
+                                        <View key={index}>
+                                            <Text>
+                                                Name: {item.fname} {item.lname} {'\n'}
+                                                Address: {item.address} {'\n'}
+                                                Company: {item.company} {'\n'}
+                                                city: {item.city} {'\n'}
+                                                country: {item.country} {'\n'}
+                                                number: {item.number} {'\n'}
+                                                email: {item.email} {'\n'}{'\n'}{'\n'}
+                                                Fruit Data: {'\n'}
+                                                {item.dataMap.map((cartItem, cartIndex) => (
+                                                    <React.Fragment key={cartIndex}>
+                                                        Image:
+                                                        {/* {cartItem.image && ( */}
+                                                        {/* <img style={styles.image} src={cartItem.image} /> */}
+                                                        <img style={styles.image} src={cartItem.image} />
+                                                        {/* )} */}
+                                                        fruit: {cartItem.fruite} {'\n'}
+                                                        {/* description: {cartItem.description} {'\n'} */}
+                                                        price: {cartItem.price} {'\n'}
+                                                        qty: {cartItem.qty} {'\n'}{'\n'}{'\n'}
+                                                    </React.Fragment>
+                                                ))}
+
+                                                subtotal: {item.subtotal} {'\n'}
+                                                discount: {item.discount} {'\n'}
+                                                discountedTotal: {item.discountedTotal} {'\n'}
+                                            </Text>
+                                            {/* Add other fields as needed */}
+                                        </View>
+
+                                    ))}
+                                </View>
+                            </Page>
+                        </Document>
+                    }
+                    fileName="checkout_details.pdf"
+                >
+                    {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+                </PDFDownloadLink>
+            )}
+
         </div>
 
     )

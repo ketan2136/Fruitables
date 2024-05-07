@@ -74,6 +74,7 @@ const Navbar = ({ user, login, logout }) => {
                                         <Link to={'/testimonial'} className="dropdown-item">Testimonial</Link>
                                         <Link to={''} href="404.html" className="dropdown-item">404 Page</Link>
                                     </div>
+                                    
                                 </div>
                                 <Link to={'/Contact'} className="nav-item nav-link">Contact</Link>
                             </div>
